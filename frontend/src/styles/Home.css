@@ -1,0 +1,30 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #e2e2e2;
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                      linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    position: relative;
+    overflow: hidden;
+    animation: moveBackground 10s linear infinite;
+}
+
+@keyframes moveBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
+}
+
+.authors {
+    position: absolute;
+    bottom: 5vh;
+    right: 5vw;
+}
