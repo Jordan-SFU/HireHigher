@@ -13,7 +13,7 @@ const router = createBrowserRouter(
         },
         {
             path: "/chattest",
-            element: <Chattest />
+            element: <Chattest/>
         }
     ]
 );
