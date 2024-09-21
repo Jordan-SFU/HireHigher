@@ -6,6 +6,7 @@ import ChatTest from "./pages/chattest";
 import Setup from "./pages/setup";
 import Interview from "./pages/interview";
 import StartConfirmation from "./pages/start_confirmation";
+import Results from "./pages/results";
 import "./styles/App.css";
 
 const router = createBrowserRouter(
@@ -29,6 +30,10 @@ const router = createBrowserRouter(
         {
           path: "/start",
           element: <StartConfirmation />
+        },
+        {
+          path: "/results",
+          element: <Results />
         }
     ]
 );
