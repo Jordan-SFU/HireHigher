@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/home";
@@ -39,6 +39,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
+      useEffect(() => {
+        fetch('18.219.68.51:3000/api/').then(
+          (response) => console.log(response)
+        );
+    }, []);    
     return (
         <div className="App">
             <RouterProvider router={router} />
