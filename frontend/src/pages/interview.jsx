@@ -1,6 +1,16 @@
 import React, { useRef, useState } from 'react';
 import '../styles/Interview.css';
 
+import { AudioRecorder } from 'react-audio-voice-recorder';
+
+const addAudioElement = (blob) => {
+    const url = URL.createObjectURL(blob);
+    const audio = document.createElement("audio");
+    audio.src = url;
+    audio.controls = true;
+    document.body.appendChild(audio);
+};
+
 const Interview = () => {
 
     const [isVideoActive, setIsVideoActive] = useState(false);
@@ -9,7 +19,7 @@ const Interview = () => {
 
     const startVideo = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({video : true});
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             videoRef.current.srcObject = stream;
             videoRef.current.play();
             streamRef.current = stream; // Save the stream for later control
@@ -54,6 +64,16 @@ const Interview = () => {
                     {isVideoActive ? 'Stop Video' : 'Start Video'}
                 </button>
                 <button className="control-btn">Leave Call</button>
+                <AudioRecorder
+                    onRecordingComplete={addAudioElement}
+                    audioTrackConstraints={{
+                        noiseSuppression: true,
+                        echoCancellation: true,
+                    }}
+                    downloadOnSavePress={false}
+                    downloadFileExtension="webm"
+                    showVisualizer={true}
+                />
             </div>
 
             {/* Chat or Notes Section */}
