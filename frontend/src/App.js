@@ -40,7 +40,7 @@ const router = createBrowserRouter(
 
 function App() {
       useEffect(() => {
-        fetch('18.219.68.51:3000/api/').then(
+        fetch('18.219.68.51:3000/views/').then(
           (response) => console.log(response)
         );
     }, []);    

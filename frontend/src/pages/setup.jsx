@@ -37,6 +37,31 @@ export default function Setup() {
 
     const handleSubmit = async () => {
         setHasSubmitted(true);
+    
+        // Create a new FormData object to send the file along with other form data
+        const formData = new FormData();
+        formData.append('jobTitle', jobTitle);
+        formData.append('resume', resume); // append the resume file
+        formData.append('additionalInfo', additionalInfo);
+        formData.append('linkedInProfile', linkedInProfile);
+    
+        try {
+            // Send a POST request to your backend (adjust the URL accordingly)
+            const response = await fetch('http://18.219.68.51:3000/views/', {
+                method: 'POST',
+                body: formData, // FormData will format everything correctly including the file
+            });
+    
+            if (response.ok) {
+                // Handle successful submission
+                console.log('Form submitted successfully');
+            } else {
+                // Handle errors
+                console.error('Failed to submit the form');
+            }
+        } catch (error) {
+            console.error('Error submitting the form:', error);
+        }
     };
 
     const steps = {

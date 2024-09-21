@@ -12,6 +12,11 @@
     position: relative;
     overflow: hidden;
     animation: moveBackground 10s linear infinite;
+    transition: opacity 1s ease-in-out; /* Fade out home content */
+}
+
+.hide-content {
+    opacity: 0; /* Fade out effect */
 }
 
 @keyframes moveBackground {
@@ -27,4 +32,19 @@
     position: absolute;
     bottom: 5vh;
     right: 5vw;
+}
+
+.cover-screen {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 10;
+    transition: top 1s ease-in-out; /* Animate the box sliding in and out */
+}
+
+.cover-screen.animate {
+    top: 0; /* Slide down to cover the screen */
 }

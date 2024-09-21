@@ -67,7 +67,33 @@ const Interview = () => {
             setCurrentQuestion(prev => prev + 1); // Move to the next question
         } else {
             setIsDone(true);
+            submitRecordings();
             navigate('/results');
+        }
+    };
+
+    // Submit the recordings to the backend
+    const submitRecordings = async () => {
+        const formData = new FormData();
+        Object.values(recordings).forEach((recording, index) => {
+            formData.append(`question${index + 1}`, recording);
+        });
+
+        try {
+            const response = await fetch('http://18.219.68.51:3000/views/',
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            ); 
+            if (response.ok) {
+                console.log('Recordings submitted successfully');
+            }
+            else {
+                console.error('Failed to submit recordings');
+            }
+        } catch (err) {
+            console.error('Error submitting recordings: ', err);
         }
     };
 
