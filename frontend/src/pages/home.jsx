@@ -12,7 +12,7 @@ export default function Home() {
         <>
             <div className='home'>
                 <h1>Unemployment Simulator</h1>
-                <IconButton size="large" color='primary' style={{ background: 'white', borderRadius: '100%' }} onClick={() => {navigate('/chattest')}}>
+                <IconButton size="large" color='primary' style={{ background: 'white', borderRadius: '100%' }} onClick={() => {navigate('/setup')}}>
                     <StartIcon />
                 </IconButton>
                 <h3>Get Started</h3>
