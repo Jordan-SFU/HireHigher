@@ -39,6 +39,7 @@
 
 .name-tag {
     position: absolute;
+    font-family: Arial, serif;
     bottom: 10px;
     left: 10px;
     color: white;
