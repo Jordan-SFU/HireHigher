@@ -29,7 +29,6 @@ const Interview = () => {
         }
     };
 
-
     return (
         <div className="interview-container">
             {/* Header */}
@@ -40,6 +39,7 @@ const Interview = () => {
             {/* Video Feeds */}
             <div className="video-section">
                 <div className="video-feed" id="user-video">
+                    <video ref={videoRef} className="video-element" />
                     <div className="name-tag">You</div>
                 </div>
                 <div className="video-feed" id="interviewer-video">
@@ -56,7 +56,7 @@ const Interview = () => {
                 <button className="control-btn">Leave Call</button>
             </div>
 
-            {/*/!* Chat or Notes Section *!/*/}
+            {/* Chat or Notes Section */}
             {/*<div className="chat-section">*/}
             {/*    <h3>Notes</h3>*/}
             {/*    <textarea placeholder="Take notes during the interview..."></textarea>*/}
