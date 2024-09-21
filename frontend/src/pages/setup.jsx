@@ -47,7 +47,7 @@ export default function Setup() {
     
         try {
             // Send a POST request to your backend (adjust the URL accordingly)
-            const response = await fetch('http://18.219.68.51:3000/views/', {
+            const response = await fetch('http://18.219.68.51:3000/api/', {
                 method: 'POST',
                 body: formData, // FormData will format everything correctly including the file
             });
