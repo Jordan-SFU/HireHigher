@@ -1,7 +1,7 @@
 import openai
 
 # API key is stored in a separate file
-API_KEY = open("API_KEY", "r").read()
+API_KEY = open("API_KEY_OPENAI", "r").read()
 openai.api_key = API_KEY
 
 class chatManager:
@@ -15,8 +15,7 @@ class chatManager:
             messages = [
                 {
                     "role": "system",
-                    "content": """You are an interviewer giving an interview for a moon exploder role position. 
-                    Limit yourself to short concise, answers and speak in a british, posh tone."""
+                    "content": """Given the data, do a brief yet short summary of this person's skills"""
                 },
                 {
                     "role": "user",
@@ -52,11 +51,11 @@ class chatManager:
         self.chatHistory = []
 
 
-while(True):
-    chat_manager = chatManager()
-    user_input = "ask me a question"
-    response_content = chat_manager.send_message(user_input)
-    print(response_content)
-    print(chat_manager.display_message_history())
-    chat_manager.clear_chat_history()
-    print(chat_manager.display_message_history())
+
+chat_manager = chatManager()
+user_input = "ask me a question"
+response_content = chat_manager.send_message(user_input)
+print(response_content)
+print(chat_manager.display_message_history())
+chat_manager.clear_chat_history()
+print(chat_manager.display_message_history())
