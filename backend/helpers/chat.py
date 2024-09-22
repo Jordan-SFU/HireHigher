@@ -231,10 +231,10 @@ e Graphic design, Music production, Biking
 
 }
 """
-analyzedData = chat_manager.analyzeData(user_input)
-print(analyzedData)
-questions = chat_manager.generateQuestions(10, user_input)
-print(questions)
+# analyzedData = chat_manager.analyzeData(user_input)
+# print(analyzedData)
+# questions = chat_manager.generateQuestions(10, user_input)
+# print(questions)
 # print(chat_manager.display_message_history())
 # chat_manager.clear_chat_history()
 # print(chat_manager.display_message_history())
