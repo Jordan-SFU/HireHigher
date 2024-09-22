@@ -106,8 +106,9 @@ export default function Setup() {
             label: 'Job Title',
             content: (
                 <div className='content'>
-                    <Typography>What Job are you applying for?</Typography>
+                    <Typography>What job are you applying for?</Typography>
                     <TextField
+                        style={{ width: '100%', marginTop: '20px' }}
                         label="Job Title"
                         value={jobTitle}
                         onChange={(e) => setJobTitle(e.target.value)}
@@ -122,6 +123,7 @@ export default function Setup() {
                 <div className='content'>
                     <Typography>Resume</Typography>
                     <Button
+                        style={{ width: '100%', marginTop: '20px' }}
                         component="label"
                         role={undefined}
                         variant="contained"
@@ -141,7 +143,9 @@ export default function Setup() {
             label: 'Additional Information',
             content: (
                 <div className='content'>
-                    <Typography>Additional Information</Typography>
+                    <Typography
+                        style={{ marginBottom: '10px' }}
+                    >What else should the interviewer know?</Typography>
                     <div className="text-field">
                         <TextField
                             label="Job Information"
@@ -153,9 +157,9 @@ export default function Setup() {
                             placeholder='Required skills, experience, etc.'
                         />
                     </div>
-                    <br />
                     <div className="text-field">
                         <TextField
+                            style={{ width: '100%' }}
                             label="LinkedIn Profile Link"
                             value={linkedInProfile}
                             onChange={(e) => setLinkedInProfile(e.target.value)}
@@ -175,7 +179,7 @@ export default function Setup() {
                 <>
                     <div className='stepper'>
                         <Stepper activeStep={activeStep}
-                            style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px' }}
+                            style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', }}
 
                         >
                             {stepLabels.map((label, index) => (

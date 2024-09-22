@@ -1,3 +1,8 @@
+.html {
+    background-color: white !important;
+    
+}
+
 
 .step-content {
     display: flex;
@@ -21,7 +26,7 @@
     justify-content: center;
     align-items: center;
     align-content: center;
-    padding-top: 30vh;
+    padding-top: 20vh;
 }
 
 .text-field {
@@ -35,4 +40,10 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+}
+
+.additional {
+    display: flex !important;
+    flex-direction: row; 
+    margin: 20px;
 }
