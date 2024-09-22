@@ -41,6 +41,6 @@ def setupData(request):
 def processTranscriptions(request):
     chat_manager = chatManager()
     for i in range(0, len(request.data)):
-        user_input = request.data['question' + str(i)]
+        user_input = request.data['question' + str(i + 1)]
         analysis = chat_manager.analyzeData(user_input)
         print(analysis)
