@@ -185,6 +185,7 @@ const Interview = () => {
                         </div>
                     ))}
                 </div>
+                <Button onClick={() => navigate('/')}>Try Again?</Button>
             </div>
         );
     };

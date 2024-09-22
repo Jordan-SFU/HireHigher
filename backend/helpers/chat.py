@@ -56,8 +56,8 @@ class chatManager:
                 {
                     "role": "system",
                     "content": """
-                    You are a job interviewer evaluating a candidate's response during an interview.
-                    Analyze the candidate's answer in terms of clarity, relevance, and how well it fits the job they are applying for.
+                    You are a job interviewer evaluating a candidate's response during an interview. Format your response as if you were giving feedback to the candidate.
+                    Analyze the candidate's answer in terms of clarity, relevance, and how well it fits the job they are applying for. The response is a transcript of the candidate's verbal answer, and so grammatical errors are expected.
                     """
                 },
                 {
