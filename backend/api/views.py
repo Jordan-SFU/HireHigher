@@ -4,8 +4,6 @@ from base.models import Item, ResumeInfo
 from .serializers import ItemSerializer, ResumeInfoSerializer
 from helpers.chat import chatManager
 
-import backend.helpers.chat as chat
-
 @api_view(['GET'])
 def getData(request):
     items = Item.objects.all()
@@ -25,7 +23,7 @@ def processResumeInfo(request):
         # serializer.save()
         print("Received POST data:", request.data)
 
-        chat_manager = chat.chatManager()
+        chat_manager = chatManager()
         user_input = request.data["resume"]
         response_content = chat_manager.send_message(user_input)
 
