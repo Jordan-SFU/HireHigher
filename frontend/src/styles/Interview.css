@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Sans';
+    src: url('./fonts/ProductSans-Regular.ttf') format('truetype'),
+}
+
+html {
+    font-family: Sans, serif;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Interview.css */
 .interview-container {
     display: flex;

@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { Stepper, Step, StepLabel, Button, Typography, Box, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import StartConfirmation from './start_confirmation';
 
 import '../styles/Setup.css';
 
 import { getOCRText } from '../utils/OCR_API.js';
+
+const theme = createTheme({
+    typography: {
+      fontFamily: 'Sans, Arial, sans-serif',
+    },
+  });
+  
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -157,29 +164,33 @@ export default function Setup() {
     const stepLabels = Object.values(steps).map(step => step.label);
 
     return (
-        <div>
+        <ThemeProvider theme={theme}>
             {!hasSubmitted && (
                 <>
-                    <h1>Setup</h1>
-                    <Stepper activeStep={activeStep}>
+                    <Stepper activeStep={activeStep}
+                    style={{backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px'}}
+                    
+                    >
                         {stepLabels.map((label, index) => (
                             <Step key={index}>
                                 <StepLabel>{label}</StepLabel>
                             </Step>
                         ))}
                     </Stepper>
-                    <Button
-                        onClick={() => { setActiveStep(prev => Math.max(prev - 1, 0)) }}
-                        disabled={activeStep === 0}
-                    >
-                        Back
-                    </Button>
-                    <Button
-                        onClick={() => { setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1)) }}
-                        disabled={activeStep === stepLabels.length - 1}
-                    >
-                        Next
-                    </Button>
+                    <div className='button-container'>
+                        <Button
+                            onClick={() => { setActiveStep(prev => Math.max(prev - 1, 0)) }}
+                            disabled={activeStep === 0}
+                        >
+                            Back
+                        </Button>
+                        <Button
+                            onClick={() => { setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1)) }}
+                            disabled={activeStep === stepLabels.length - 1}
+                        >
+                            Next
+                        </Button>
+                    </div>
                     <Box>
                         <div className='step-content'>
                             {steps[activeStep]?.content}
@@ -196,6 +207,6 @@ export default function Setup() {
                 </>
             )}
             {hasSubmitted && <StartConfirmation canStart={!isLoadingResults} />}
-        </div>
+        </ThemeProvider>
     );
 }
