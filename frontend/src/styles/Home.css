@@ -20,17 +20,6 @@ html {
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background-color: #e2e2e2;
-    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 1px, transparent 1px),
-                      linear-gradient(rgba(0, 0, 0, 0.16) 1px, transparent 1px);
-    background-size: 50px 50px;
-    position: relative;
-    overflow: hidden;
-    animation: moveBackground 5s linear infinite;
-    transition: opacity 1s ease-in-out; /* Fade out home content */
-
-    opacity: 0.5; /* Set the overall opacity of the grid if needed */
-    z-index: 1;
 }
 
 .slogan {
@@ -38,7 +27,6 @@ html {
     font-size: 45px;
     font-weight: normal;
     padding-bottom: 25px;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
 }
 
 .carousel-container {
@@ -176,20 +164,17 @@ html {
 
 .home p {
     font-family: "Open Sans", sans-serif;
-    font-weight: bold;
-    font-size: 25px;
+    font-size: 1em;
 }
 
 .home h3 {
     font-family: 'Open Sans', serif;
     font-size: 35px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .authors {
     position: absolute;
-    bottom: 5vh;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    bottom: 3vh;
 }
 
 .login-text {

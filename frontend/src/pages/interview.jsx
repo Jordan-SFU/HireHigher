@@ -202,10 +202,8 @@ const Interview = () => {
                             <h3>Question {index + 1}</h3>
                             <h5>{questions[index + 1]}</h5>
                             <p>{transcriptionOBJ.transcription}</p>
-                            <p>{analyses['analyses'][index]}</p>
+                            <p>{analyses[index]}</p>
                             <p>Time taken: {times[index + 1]} seconds</p>
-    
-                            {/* Display WPM */}
                             <p>Words per minute: {calculateWPM(transcriptionOBJ.transcription, times[index + 1])}</p>
                         </div>
                     ))}

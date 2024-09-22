@@ -9,15 +9,13 @@
 html {
     font-family: Sans, serif;
     font-size: 20px;
-    align-items: center;
-    justify-content: center;
 }
 
 
 .modal-overlay h1 {
     font-family: 'Cabin Sketch', serif;
-    font-size: 55px;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.7);
+    font-size: 50px;
+    text-align: center;
 }
 
 .modal-overlay p {
@@ -40,11 +38,10 @@ html {
 
 .modal-content {
     background-color: white;
-    padding: 20px;
+    padding: 30px;
     width: 80%;
     max-width: 700px;
     border-radius: 10px;
-    text-align: center;
 }
 
 .modal-buttons {

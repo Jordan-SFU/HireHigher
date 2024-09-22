@@ -52,7 +52,7 @@ export default function Home() {
                 }} onClick={handleBeginClick}>
                     <StartIcon/>
                 </IconButton>
-                <h3>BEGIN</h3>
+                <h3>Get Started</h3>
 
                 {/* Infinite vertical carousel */}
                 <div className="carousel-container">
