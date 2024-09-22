@@ -29,6 +29,8 @@ export default function Setup() {
     const [linkedInProfile, setLinkedInProfile] = useState('');
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
+    const [isLoadingResults, setIsLoadingResults] = useState(false);
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -37,16 +39,8 @@ export default function Setup() {
         }
     };
 
-    const convertFileToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result.split(',')[1]);  // Strip the base64 prefix
-            reader.onerror = error => reject(error);
-        });
-    };
-
     const handleSubmit = async () => {
+        setIsLoadingResults(true);
         setHasSubmitted(true);
 
         let ocrText = null;
@@ -97,6 +91,7 @@ export default function Setup() {
         } catch (error) {
             console.error('Error submitting the form:', error);
         }
+        setIsLoadingResults(false);
     };
 
     const steps = {
@@ -200,7 +195,7 @@ export default function Setup() {
                     )}
                 </>
             )}
-            {hasSubmitted && <StartConfirmation />}
+            {hasSubmitted && <StartConfirmation canStart={!isLoadingResults} />}
         </div>
     );
 }
