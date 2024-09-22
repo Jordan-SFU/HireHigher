@@ -27,9 +27,10 @@ def processResumeInfo(request):
         chat_manager = chatManager()
         user_input = request.data["resume"]
         response_content = chat_manager.send_message(user_input)
+        print(response_content)
 
     print("Received POST data:", request.data)
-    return Response(serializer.data, response_content)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def setupData(request):
