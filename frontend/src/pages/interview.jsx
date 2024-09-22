@@ -8,6 +8,7 @@ const Interview = () => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [transcriptions, setTranscriptions] = useState({});
+    const [analyses, setAnalyses] = useState({});
     const videoRef = useRef(null);
     const streamRef = useRef(null);
     const recognitionRef = useRef(null);
@@ -107,9 +108,9 @@ const Interview = () => {
         if (currentQuestion < questionCount - 1) {
             setCurrentQuestion(prev => prev + 1);
         } else {
-            setIsDone(true);
             submitTranscriptions();
-            navigate('/results');
+            setIsDone(true);
+            //navigate('/results');
         }
     };
 
@@ -121,10 +122,6 @@ const Interview = () => {
         });
 
         try {
-            // send transcriptions to local storage, and then to the backend
-            const transcriptionsArray = Object.values(transcriptions);
-            window.localStorage.setItem('transcriptions', JSON.stringify(transcriptionsArray));
-
             const response = await fetch('http://18.219.68.51:3000/transcriptions/', {
                 method: 'POST',
                 body: formData
@@ -132,9 +129,8 @@ const Interview = () => {
             if (response.ok) {
                 console.log('Transcriptions submitted successfully');
                 let data = await response.json();
-
-                // send data to local storage
-                localStorage.setItem('analyses', JSON.stringify(data));
+                //setAnalyses(JSON.parse(data));
+                console.log('Analyses:', data);
             } else {
                 console.error('Failed to submit transcriptions');
             }
@@ -175,6 +171,7 @@ const Interview = () => {
                         <div key={index}>
                             <h3>Question {index + 1}</h3>
                             <p>{transcription}</p>
+                            <p>{analyses['question'+index]}</p>
                         </div>
                     ))}
                 </div>
@@ -183,53 +180,56 @@ const Interview = () => {
     };
 
     return (
+
         <div className="interview-container">
-            {/* Header */}
-            <div className="header">
-                <h1>Interview</h1>
-            </div>
-
-            {/* Video Feeds */}
-            <div className="video-section">
-                <div className="video-feed" id="user-video">
-                    <video ref={videoRef} className="video-element" />
-                    <div className="name-tag">You</div>
+            {!isDone && (
+            <>
+                {/* Header */}
+                <div className="header">
+                    <h1>Interview</h1>
                 </div>
-                <div className="video-feed" id="interviewer-video">
-                    <div className="black-screen" /> {/* Placeholder for interviewer */}
-                    <div className="name-tag">Interviewer</div>
-                </div>
-            </div>
 
-            {/* Question Stepper */}
-            {questionCount > 0 ? (
-                <div className="stepper-section">
-                    <Stepper activeStep={currentQuestion} alternativeLabel>
-                        {Object.values(questions).map((_, index) => (
-                            <Step key={index}>
-                                <StepLabel>{`Question ${index + 1}`}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-                    <Button
-                        className="control-btn"
-                        onClick={nextQuestion}
-                    >
-                        {currentQuestion < questionCount - 1 ? 'Next Question' : 'Finish Interview'}
-                    </Button>
-                    {questions[currentQuestion + 1] && (
-                        <div className="question-text">
-                            <h3>Question {currentQuestion + 1}</h3>
-                            <p>{questions[currentQuestion + 1]}</p>
-                        </div>
-                    )}
+                {/* Video Feeds */}
+                <div className="video-section">
+                    <div className="video-feed" id="user-video">
+                        <video ref={videoRef} className="video-element" />
+                        <div className="name-tag">You</div>
+                    </div>
+                    <div className="video-feed" id="interviewer-video">
+                        <div className="black-screen" /> {/* Placeholder for interviewer */}
+                        <div className="name-tag">Interviewer</div>
+                    </div>
                 </div>
-            ) : (
-                <p>Loading questions...</p> // Fallback in case questions are still being loaded
-            )}
 
+                {/* Question Stepper */}
+                {questionCount > 0 ? (
+                    <div className="stepper-section">
+                        <Stepper activeStep={currentQuestion} alternativeLabel>
+                            {Object.values(questions).map((_, index) => (
+                                <Step key={index}>
+                                    <StepLabel>{`Question ${index + 1}`}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        <Button
+                            className="control-btn"
+                            onClick={nextQuestion}
+                        >
+                            {currentQuestion < questionCount - 1 ? 'Next Question' : 'Finish Interview'}
+                        </Button>
+                        {questions[currentQuestion + 1] && (
+                            <div className="question-text">
+                                <h3>Question {currentQuestion + 1}</h3>
+                                <p>{questions[currentQuestion + 1]}</p>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <p>Loading questions...</p> // Fallback in case questions are still being loaded
+                )}
+            </>)}
             {/* Playback Screen */}
-            {isDone && playbackScreen()}
+            {isDone && analyses && playbackScreen()}
         </div>
     );
 };
