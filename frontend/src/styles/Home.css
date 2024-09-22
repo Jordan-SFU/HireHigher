@@ -9,12 +9,12 @@
     height: 100vh;
     width: 100vw;
     background-color: #e2e2e2;
-    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-                      linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 1px, transparent 1px),
+                      linear-gradient(rgba(0, 0, 0, 0.16) 1px, transparent 1px);
     background-size: 50px 50px;
     position: relative;
     overflow: hidden;
-    animation: moveBackground 10s linear infinite;
+    animation: moveBackground 5s linear infinite;
     transition: opacity 1s ease-in-out; /* Fade out home content */
 
     opacity: 0.5; /* Set the overall opacity of the grid if needed */
@@ -32,7 +32,7 @@
 .carousel {
     display: flex;
     flex-direction: column;
-    animation: scrollUp 650s linear infinite; /* Infinite upward scrolling animation */
+    animation: scrollUp 750s linear infinite; /* Infinite upward scrolling animation */
 }
 
 .carousel-item {
@@ -102,7 +102,7 @@
 .carousel2 {
     display: flex;
     flex-direction: column;
-    animation: scrollDown 650s linear infinite; /* Infinite upward scrolling animation */
+    animation: scrollDown 750s linear infinite; /* Infinite upward scrolling animation */
 }
 
 .image-animation2 {
