@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 .home {
     display: flex;
     flex-direction: column;
@@ -13,7 +16,142 @@
     overflow: hidden;
     animation: moveBackground 10s linear infinite;
     transition: opacity 1s ease-in-out; /* Fade out home content */
+
+    opacity: 0.5; /* Set the overall opacity of the grid if needed */
+    z-index: 1;
 }
+
+.carousel-container {
+    width: 370px;  /* Width of each animation box */
+    height: 100vh; /* Visible height for 3 boxes at a time */
+    overflow: hidden; /* Hide the content that goes beyond the container */
+    position: absolute;
+    left: 6vw;
+}
+
+.carousel {
+    display: flex;
+    flex-direction: column;
+    animation: scrollUp 650s linear infinite; /* Infinite upward scrolling animation */
+}
+
+.carousel-item {
+    width: 350px;
+    height: 350px;
+    background-color: transparent;
+    margin-bottom: 25px; /* Space between items */
+}
+
+/*.image-animation {*/
+/*    position: absolute;*/
+/*    left: 10vw;*/
+
+/*    width: 350px; !* Set the width of the image *!*/
+/*    height: 350px; !* Set the height of the image *!*/
+/*    background-image: url('./images/user1.png'); !* Default image *!*/
+/*    background-size: 120%; !* Ensure the image covers the container *!*/
+
+/*    background-position: center;*/
+/*    animation: alternateImages 0.5s infinite; !* Infinite animation, alternating every 1 second *!*/
+/*    z-index: 0; !* Sends the image behind the text *!*/
+/*    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); !* Adds a 3D shadow effect *!*/
+/*}*/
+
+.image-animation {
+    width: 100%;
+    height: 100%;
+    background-image: url('./images/user1.png');
+    background-size: 120%;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: alternateImages 0.5s infinite;
+    border-radius: 10px;
+    box-shadow: 5px 5px 9px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes alternateImages {
+    0% {
+        background-image: url('./images/user1.png');
+    }
+    49% {
+        background-image: url('./images/user1.png');
+    }
+    50% {
+        background-image: url('./images/user2.png');
+    }
+    99% {
+        background-image: url('./images/user2.png');
+    }
+    100% {
+        background-image: url('./images/user1.png');
+    }
+}
+
+@keyframes scrollUp {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes scrollDown {
+    0% {
+        transform: translateY(-50%); /* Start the carousel halfway down */
+    }
+    100% {
+        transform: translateY(50%); /* Move down past the end */
+    }
+}
+
+.carousel-container2 {
+    width: 370px;  /* Width of each animation box */
+    height: 100vh; /* Visible height for 3 boxes at a time */
+    overflow: hidden; /* Hide the content that goes beyond the container */
+    position: absolute;
+    right: 6vw;
+}
+
+.carousel2 {
+    display: flex;
+    flex-direction: column;
+    animation: scrollDown 650s linear infinite; /* Infinite upward scrolling animation */
+}
+
+.image-animation2 {
+    width: 100%;
+    height: 100%;
+    background-image: url('./images/bot1.png');
+    background-size: 135%;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: alternateImages2 0.5s infinite;
+    border-radius: 10px;
+    box-shadow: 5px 5px 9px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes alternateImages2 {
+    0% {
+        background-image: url('./images/bot1.png');
+    }
+    49% {
+        background-image: url('./images/bot1.png');
+    }
+    50% {
+        background-image: url('./images/bot2.png');
+    }
+    99% {
+        background-image: url('./images/bot2.png');
+    }
+    100% {
+        background-image: url('./images/bot1.png');
+    }
+}
+
+
+
+
 
 .hide-content {
     opacity: 0; /* Fade out effect */
@@ -28,26 +166,60 @@
     }
 }
 
+.home p {
+    font-family: 'Open Sans', serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.home h3 {
+    font-family: 'Open Sans', serif;
+    font-size: 35px;
+}
+
 .authors {
     position: absolute;
     bottom: 5vh;
-    right: 5vw;
 }
 
 .login-text {
-    margin-top: 50px;
     font-size: 120px;
     margin: 50px;
     padding: 10px;
-    background: -webkit-linear-gradient(#5A0CD6, #BBA5DF);
+    background: -webkit-linear-gradient(#00a5ff, #711fff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: "poppins";
+    font-family: 'Cabin Sketch', sans-serif;
+    font-weight: 700;
     display: block;
-    color: white;
-    text-align: center; /* Align text to the left within the .navbar-brand element */
-    text-decoration: none;
+    text-align: center;
+    position: relative; /* For positioning the image */
 }
+
+/* Container for the image behind the text */
+.login-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Background image */
+.login-container::before {
+    content: "";
+    background-image: url('./images/paeper.png'); /* Add the image URL here */
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Sends the image behind the text */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Adds a 3D shadow effect */
+    opacity: 0.8; /* Slight transparency to make text stand out */
+    border-radius: 10px; /* Optional: for rounded edges on the background */
+}
+
 
 .cssbuttons-io-button {
     /* From https://css.glass */
