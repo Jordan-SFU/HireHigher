@@ -137,7 +137,8 @@ const Interview = () => {
             });
             if (response.ok) {
                 console.log('Transcriptions submitted successfully');
-                console.log(response);
+                let data = await response.json();
+                console.log(data);
             } else {
                 console.error('Failed to submit transcriptions');
             }
