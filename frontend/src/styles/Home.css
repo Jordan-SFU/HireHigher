@@ -92,10 +92,10 @@
 
 @keyframes scrollDown {
     0% {
-        transform: translateY(-1%); /* Start the carousel halfway down */
+        transform: translateY(-97%); /* Start the carousel halfway down */
     }
     100% {
-        transform: translateY(99%); /* Move down past the end */
+        transform: translateY(3%); /* Move down past the end */
     }
 }
 
@@ -120,7 +120,7 @@
     background-size: 135%;
     background-position: center;
     background-position-x: -27px;
-    background-position-y: -310px;
+    background-position-y: -300px;
     background-repeat: no-repeat;
     animation: alternateImages2 0.5s infinite;
     border-radius: 10px;
