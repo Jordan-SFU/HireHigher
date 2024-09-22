@@ -106,11 +106,7 @@ export default function Setup() {
             label: 'Job Title',
             content: (
                 <div className='content'>
-<<<<<<< HEAD
                     <Typography>What job are you applying for?</Typography>
-=======
-                    <Typography style={{marginBottom: '10px'}}>What Job are you applying for?</Typography>
->>>>>>> a36d645dd17dfee73ddebe55725944e6cb15e99a
                     <TextField
                         style={{ width: '100%', marginTop: '20px' }}
                         label="Job Title"
@@ -147,13 +143,9 @@ export default function Setup() {
             label: 'Additional Information',
             content: (
                 <div className='content'>
-<<<<<<< HEAD
                     <Typography
                         style={{ marginBottom: '10px' }}
                     >What else should the interviewer know?</Typography>
-=======
-                    <Typography style={{marginBottom: '10px'}}>Additional Information</Typography>
->>>>>>> a36d645dd17dfee73ddebe55725944e6cb15e99a
                     <div className="text-field">
                         <TextField
                             label="Job Information"
@@ -185,16 +177,9 @@ export default function Setup() {
         <ThemeProvider theme={theme}>
             {!hasSubmitted && (
                 <>
-<<<<<<< HEAD
                     <div className='stepper'>
                         <Stepper activeStep={activeStep}
                             style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', }}
-=======
-                    <div className='stepper-container'>
-                        <div className='stepper'>
-                            <Stepper activeStep={activeStep}
-                                style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px' }}
->>>>>>> a36d645dd17dfee73ddebe55725944e6cb15e99a
 
                             >
                                 {stepLabels.map((label, index) => (
@@ -226,7 +211,7 @@ export default function Setup() {
                                 {steps[activeStep]?.content}
                             </div>
                         </Box>
-                    </div>
+
                 </>
             )}
             {hasSubmitted && <StartConfirmation canStart={!isLoadingResults} />}

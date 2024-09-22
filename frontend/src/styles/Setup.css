@@ -1,6 +1,6 @@
 .html {
     background-color: white !important;
-    
+
 }
 
 
@@ -42,13 +42,8 @@
     align-content: center;
 }
 
-<<<<<<< HEAD
 .additional {
     display: flex !important;
     flex-direction: row; 
     margin: 20px;
 }
-=======
-.stepper-container {
-}
->>>>>>> a36d645dd17dfee73ddebe55725944e6cb15e99a
