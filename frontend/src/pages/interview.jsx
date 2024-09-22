@@ -194,11 +194,11 @@ const Interview = () => {
         };
     
         return (
-            <div>
+            <div className='feedback'>
                 <h1>Interview Playback</h1>
-                <div>
+                <div className='stats'>
                     {transcriptionsArray.map((transcriptionOBJ, index) => (
-                        <div key={index}>
+                        <div key={index} className='stat-block'>
                             <h3>Question {index + 1}</h3>
                             <h5>{questions[index + 1]}</h5>
                             <p>{transcriptionOBJ.transcription}</p>
