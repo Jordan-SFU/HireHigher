@@ -49,5 +49,8 @@ def processTranscriptions(request):
         user_input = request.data['question' + str(i + 1)]
         analysis = chat_manager.analyzeUserResponse(user_input)
         analyses.append(analysis)
-        print(i + "       " + analysis + "\n\n\n")
+        print(i)
+        print("     ")
+        print(analysis)
+        print("\n\n\n")
     return Response({"analyses": analyses})
