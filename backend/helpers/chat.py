@@ -155,16 +155,29 @@ class chatManager:
                     {ResumeData}
                     Now, keep in mind that the questions should be relevant to the job title and the additional information provided. The questions should be open-ended and should not be too specific.
                     From the resume data, I want you to follow these rules:
-                        1. If the person has had previous work experience, ask 1 or 2 questions about their previous work experience If they have had relevant work experience PRIORITIZE THAT. Examples:
+                        0. This rule takes precedence over the others. at least two-thirds of the questions asked must NOT be about the person's work experience, skills or projects. e.g. of they have 3 questions, only
+                            ask 1 question about work experience, skills, or projects. If they have 4 questions, only ask 1 question about work experience, skills, or projects. If they have 5 questions, only ask 2 questions about work experience, skills, or projects, and so on.
+                        1. If the person has had previous work experience, ask 0 to 2 questions about their previous work experience If they have had relevant work experience PRIORITIZE THAT. Examples:
 
                             a. "I see you have worked at [Company Name] as a [Job Title]. What do you think was the biggest lesson from the job?"
                             b. [Job Title] at [Company Name]! What was your experience like there?"
                             c. "I see you have worked at [Company Name] as a [Job Title]. What was a time you had to deal with a difficult situation there?"
                             d. "It's good to see [Job Title] at [Company Name] on your resume. Can you tell me more about your experience there?"
 
-                        2. If the person has many relevant skills, ask 1 questions about their skills. Examples:
+                        2. If the person has many relevant skills OR projects, ask 1 question about their skills. Examples:
 
-                            a. "I see you have experience in [Skill 1], [Skill 2], and [Skill 3]. Can you tell me more about how you have applied those skills
+                            a. "I see you have experience in [Skill 1], [Skill 2], and [Skill 3]. Can you tell me more about how you have applied those skills?
+                            b. "I see you have worked on [Project 1], [Project 2], and [Project 3]. Tell me more about these projects"
+                            c. What was the most challenging project you have worked on and how did you overcome it?
+                            d. What was the most challenging skill you have had to learn and how did you learn it?
+
+                    Again, the questions MUST make sense for the type of interview they are doing. If they are applying as a cashier, do not ask them about their Python Coding skills. Generate the questions in a list of strings like this:
+                    ["What were some challenges you faced working at Google?", 
+                    "What was the most challenging project you have worked on and how did you overcome it?", 
+                    "What was the most challenging skill you have had to learn and how did you learn it?"]
+
+                    Again, the questions should be in the format of a python list of strings:
+                    ["Question 1", "Question 2", "Question 3", ...]
                     """
                 }
             ]
@@ -183,7 +196,7 @@ class chatManager:
 chat_manager = chatManager()
 user_input = """
 {
-    jobTitle: Pharmacy Technician
+    jobTitle: Software Developer
     additionalInfo: I'm good at math, science, coding, and I'm a fast learner. I'm also a team player and I'm good at problem solving. I'm also good at communicating with others.
     linkedInProfile: 
     resume:  
@@ -218,8 +231,10 @@ e Graphic design, Music production, Biking
 
 }
 """
-response_content = chat_manager.analyzeData(user_input)
-print(response_content)
+analyzedData = chat_manager.analyzeData(user_input)
+print(analyzedData)
+questions = chat_manager.generateQuestions(10, user_input)
+print(questions)
 # print(chat_manager.display_message_history())
 # chat_manager.clear_chat_history()
 # print(chat_manager.display_message_history())
