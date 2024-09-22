@@ -4,7 +4,10 @@ from dotenv import load_dotenv
 
 # API key is stored in a separate file
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_KEY")
+
+
+# Set the API key when using OpenAI API
+openai.api_key = ""
 
 class chatManager:
 
@@ -45,6 +48,27 @@ class chatManager:
         )
         self.chatHistory.append(response.choices[0].message.content)
         return response.choices[0].message.content
+
+    def analyzeUserResponse(self, user_response):
+        response = openai.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": """
+                    You are a job interviewer evaluating a candidate's response during an interview.
+                    Analyze the candidate's answer in terms of clarity, relevance, and how well it fits the job they are applying for.
+                    """
+                },
+                {
+                    "role": "user",
+                    "content": user_response
+                }
+            ]
+        )
+        self.chatHistory.append(response.choices[0].message.content)
+        return response.choices[0].message.content
+
     
     def analyzeData(self, resumeData):
         response = openai.chat.completions.create(
@@ -233,7 +257,7 @@ e Graphic design, Music production, Biking
 """
 # analyzedData = chat_manager.analyzeData(user_input)
 # print(analyzedData)
-# questions = chat_manager.generateQuestions(10, user_input)
+# questions = chat_manager.generateQuestions(5, user_input)
 # print(questions)
 # print(chat_manager.display_message_history())
 # chat_manager.clear_chat_history()
