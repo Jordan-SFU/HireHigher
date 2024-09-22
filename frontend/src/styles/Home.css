@@ -42,20 +42,6 @@
     margin-bottom: 25px; /* Space between items */
 }
 
-/*.image-animation {*/
-/*    position: absolute;*/
-/*    left: 10vw;*/
-
-/*    width: 350px; !* Set the width of the image *!*/
-/*    height: 350px; !* Set the height of the image *!*/
-/*    background-image: url('./images/user1.png'); !* Default image *!*/
-/*    background-size: 120%; !* Ensure the image covers the container *!*/
-
-/*    background-position: center;*/
-/*    animation: alternateImages 0.5s infinite; !* Infinite animation, alternating every 1 second *!*/
-/*    z-index: 0; !* Sends the image behind the text *!*/
-/*    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); !* Adds a 3D shadow effect *!*/
-/*}*/
 
 .image-animation {
     width: 100%;
