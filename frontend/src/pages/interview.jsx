@@ -197,7 +197,6 @@ const Interview = () => {
             <>
                 {/* Header */}
                 <div className="header">
-                    <h1>Interview</h1>
                 </div>
 
                 {/* Video Feeds */}
@@ -214,26 +213,28 @@ const Interview = () => {
 
                 {/* Question Stepper */}
                 {questionCount > 0 ? (
-                    <div className="stepper-section">
-                        <Stepper activeStep={currentQuestion} alternativeLabel>
+                    <div className="stepper-section" style={{ position: 'fixed', top: '50%', width: '100%'}}>
+                        <Stepper activeStep={currentQuestion} alternativeLabel >
                             {Object.values(questions).map((_, index) => (
                                 <Step key={index}>
                                     <StepLabel>{`Question ${index + 1}`}</StepLabel>
                                 </Step>
                             ))}
                         </Stepper>
+
+                        {questions[currentQuestion + 1] && (
+                            <div className="question-text" style={{position: 'relative', display: 'grid', marginTop: '4%', width: '100%', justifyContent: 'center' }}>
+                                <p>{questions[currentQuestion + 1]}</p>
+                            </div>
+                        )}
+
                         <Button
                             className="control-btn"
+                            style={{position: 'relative', display: 'grid', marginTop: '4%', left:'44%', justifyContent: 'center' }}
                             onClick={nextQuestion}
                         >
                             {currentQuestion < questionCount - 1 ? 'Next Question' : 'Finish Interview'}
                         </Button>
-                        {questions[currentQuestion + 1] && (
-                            <div className="question-text">
-                                <h3>Question {currentQuestion + 1}</h3>
-                                <p>{questions[currentQuestion + 1]}</p>
-                            </div>
-                        )}
                     </div>
                 ) : (
                     <p>Loading questions...</p> // Fallback in case questions are still being loaded
