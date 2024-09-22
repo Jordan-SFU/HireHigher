@@ -19,6 +19,8 @@ const Interview = () => {
 
     const [questionCount, setQuestionCount] = useState(0);
 
+    const [isLoadingAnalyses, setIsLoadingAnalyses] = useState(false);
+
     useEffect(() => {
         const summaryJSON = JSON.parse(window.localStorage.getItem('summary'));
         const questionsJSON = JSON.parse(window.localStorage.getItem('questions'));
@@ -101,16 +103,23 @@ const Interview = () => {
     };
 
     // Move to the next question and handle transitions
-    const nextQuestion = () => {
+    const nextQuestion = async () => {
         stopSpeechRecognition();
-
+    
         // Check if the interview is done
-        if (currentQuestion < questionCount - 1) {
+        if (currentQuestion < questionCount) {
             setCurrentQuestion(prev => prev + 1);
         } else {
-            submitTranscriptions();
+            // Ensure the last transcript is saved before submitting
+            setTranscriptions(prevTranscriptions => {
+                // Ensure the last transcript is captured here (if needed)
+                return { ...prevTranscriptions };
+            });
+    
+            setIsLoadingAnalyses(true);
+            await submitTranscriptions();  // Submit the transcriptions after the last state update
+            setIsLoadingAnalyses(false);
             setIsDone(true);
-            //navigate('/results');
         }
     };
 
@@ -129,7 +138,7 @@ const Interview = () => {
             if (response.ok) {
                 console.log('Transcriptions submitted successfully');
                 let data = await response.json();
-                //setAnalyses(JSON.parse(data));
+                setAnalyses(data);
                 console.log('Analyses:', data);
             } else {
                 console.error('Failed to submit transcriptions');
@@ -171,7 +180,7 @@ const Interview = () => {
                         <div key={index}>
                             <h3>Question {index + 1}</h3>
                             <p>{transcription}</p>
-                            <p>{analyses['question'+index]}</p>
+                            <p>{analyses['analyses'][index]}</p>
                         </div>
                     ))}
                 </div>
@@ -182,7 +191,7 @@ const Interview = () => {
     return (
 
         <div className="interview-container">
-            {!isDone && (
+            {!isDone && !isLoadingAnalyses && (
             <>
                 {/* Header */}
                 <div className="header">
@@ -229,7 +238,8 @@ const Interview = () => {
                 )}
             </>)}
             {/* Playback Screen */}
-            {isDone && analyses && playbackScreen()}
+            {isDone && !isLoadingAnalyses && analyses && playbackScreen()}
+            {isLoadingAnalyses && <p>Submitting transcriptions...</p>}
         </div>
     );
 };
