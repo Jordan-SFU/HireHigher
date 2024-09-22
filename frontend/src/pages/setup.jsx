@@ -6,6 +6,8 @@ import StartConfirmation from './start_confirmation';
 
 import '../styles/Setup.css';
 
+import { getOCRText } from '../utils/OCR_API.js';
+
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -35,13 +37,33 @@ export default function Setup() {
         }
     };
 
+    const convertFileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result.split(',')[1]);  // Strip the base64 prefix
+            reader.onerror = error => reject(error);
+        });
+    };
+
     const handleSubmit = async () => {
         setHasSubmitted(true);
-    
+
+        let ocrText = null;
+        if (resume) {
+            try {
+                // Send the file to the OCR API
+                ocrText = await getOCRText(resume);
+                console.log("Extracted Text from OCR API:", ocrText);
+            } catch (error) {
+                console.error('Error during OCR processing:', error);
+            }
+        }
+
         // Create a new FormData object to send the file along with other form data
         const formData = new FormData();
         formData.append('jobTitle', jobTitle);
-        formData.append('resume', resume); // append the resume file
+        formData.append('resume', ocrText); // append the detected text from the resume
         formData.append('additionalInfo', additionalInfo);
         formData.append('linkedInProfile', linkedInProfile);
     
@@ -55,6 +77,7 @@ export default function Setup() {
             if (response.ok) {
                 // Handle successful submission
                 console.log('Form submitted successfully');
+                console.log('Response:', await response.json());
             } else {
                 // Handle errors
                 console.error('Failed to submit the form');
