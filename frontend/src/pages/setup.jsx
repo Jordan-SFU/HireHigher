@@ -106,7 +106,11 @@ export default function Setup() {
             label: 'Job Title',
             content: (
                 <div className='content'>
+<<<<<<< HEAD
                     <Typography>What job are you applying for?</Typography>
+=======
+                    <Typography style={{marginBottom: '10px'}}>What Job are you applying for?</Typography>
+>>>>>>> a36d645dd17dfee73ddebe55725944e6cb15e99a
                     <TextField
                         style={{ width: '100%', marginTop: '20px' }}
                         label="Job Title"
@@ -121,7 +125,7 @@ export default function Setup() {
             label: 'Resume',
             content: (
                 <div className='content'>
-                    <Typography>Resume</Typography>
+                    <Typography style={{marginBottom: '10px'}}>Upload your Resume</Typography>
                     <Button
                         style={{ width: '100%', marginTop: '20px' }}
                         component="label"
@@ -143,9 +147,13 @@ export default function Setup() {
             label: 'Additional Information',
             content: (
                 <div className='content'>
+<<<<<<< HEAD
                     <Typography
                         style={{ marginBottom: '10px' }}
                     >What else should the interviewer know?</Typography>
+=======
+                    <Typography style={{marginBottom: '10px'}}>Additional Information</Typography>
+>>>>>>> a36d645dd17dfee73ddebe55725944e6cb15e99a
                     <div className="text-field">
                         <TextField
                             label="Job Information"
@@ -177,40 +185,48 @@ export default function Setup() {
         <ThemeProvider theme={theme}>
             {!hasSubmitted && (
                 <>
+<<<<<<< HEAD
                     <div className='stepper'>
                         <Stepper activeStep={activeStep}
                             style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', }}
+=======
+                    <div className='stepper-container'>
+                        <div className='stepper'>
+                            <Stepper activeStep={activeStep}
+                                style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px' }}
+>>>>>>> a36d645dd17dfee73ddebe55725944e6cb15e99a
 
-                        >
-                            {stepLabels.map((label, index) => (
-                                <Step key={index}>
-                                    <StepLabel>{label}</StepLabel>
-                                </Step>
-                            ))}
-                        </Stepper>
-                    </div>
-                    <div className='button-container'>
-                        <Button
-                            onClick={() => { setActiveStep(prev => Math.max(prev - 1, 0)) }}
-                            disabled={activeStep === 0}
-                        >
-                            Back
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                activeStep === stepLabels.length - 1 ? handleSubmit() :
-                                    setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1))
-                            }}
-                            disabled={activeStep === stepLabels.length}
-                        >
-                            {activeStep === stepLabels.length - 1 ? 'Submit' : 'Next'}
-                        </Button>
-                    </div>
-                    <Box>
-                        <div className='step-content'>
-                            {steps[activeStep]?.content}
+                            >
+                                {stepLabels.map((label, index) => (
+                                    <Step key={index}>
+                                        <StepLabel>{label}</StepLabel>
+                                    </Step>
+                                ))}
+                            </Stepper>
                         </div>
-                    </Box>
+                        <div className='button-container'>
+                            <Button
+                                onClick={() => { setActiveStep(prev => Math.max(prev - 1, 0)) }}
+                                disabled={activeStep === 0}
+                            >
+                                Back
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    activeStep === stepLabels.length - 1 ? handleSubmit() :
+                                        setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1))
+                                }}
+                                disabled={activeStep === stepLabels.length}
+                            >
+                                {activeStep === stepLabels.length - 1 ? 'Submit' : 'Next'}
+                            </Button>
+                        </div>
+                        <Box>
+                            <div className='step-content'>
+                                {steps[activeStep]?.content}
+                            </div>
+                        </Box>
+                    </div>
                 </>
             )}
             {hasSubmitted && <StartConfirmation canStart={!isLoadingResults} />}

@@ -1,0 +1,18 @@
+.start-confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    margin-top: 35vh;
+}
+
+.start-confirmation h1 {
+    font-family: 'Cabin Sketch', serif;
+    font-size: 50px;
+}
+
+.start-confirmation p {
+    font-family: 'Open Sans', serif;
+    font-size: 25px;
+}

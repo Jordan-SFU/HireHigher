@@ -256,7 +256,7 @@ const Interview = () => {
                             style={{position: 'relative', display: 'grid', marginTop: '4%', left:'44%', justifyContent: 'center' }}
                             onClick={nextQuestion}
                         >
-                            {currentQuestion < questionCount - 1 ? 'Next Question' : 'Finish Interview'}
+                            {currentQuestion < questionCount - 1 ? 'Next Question' :(currentQuestion < questionCount ? 'Finish' : 'Submit')}
                         </Button>
                     </div>
                 ) : (
