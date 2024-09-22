@@ -150,8 +150,8 @@ const Interview = () => {
             if (response.ok) {
                 console.log('Transcriptions submitted successfully');
                 let data = await response.json();
-                setAnalyses(data);
-                console.log('Analyses:', data);
+                setAnalyses(data['analyses']);
+                console.log(data);
             } else {
                 console.error('Failed to submit transcriptions');
             }
