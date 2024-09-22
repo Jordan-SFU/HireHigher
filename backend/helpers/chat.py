@@ -72,11 +72,7 @@ class chatManager:
                         relatedWork: Do the same prompt as the previousWork, but make a list the jobs that are related to the job they are applying for. For each job, provide a 1-sentence summary
                                      of the person's job based off of the description. If none are related, respond with "None".
                         skills: List the skills the person has, separated by commas, order from what you think would be most to least relevant to the job. Limit yourself to max 7 skills.
-                        Education: Answer as True/False. Does the person have the relevant education for the job they are applying for? Certifications count as education.  Keep in mind the education must be relevant. 
-                                    e.g. a degree in computer science for a software developer job or a high school diploma for a retail worker job. Do not have unrelated degrees for unrelated jobs e.g. don't
-                                    , have an english degree become a scientist, but as long as it's reasonably relevant it's fine, e.g. an english degree for a teacher job.
-                                    Keep in mind the status of the degree. If they want to be a scientist, a PHD or Masters is necessary.  A high school degree is enough for a clerk or secratary. Jobs like Trades or
-                                    retail jobs do not need a degree.
+                        Education: List what type of education they have.
                         Projects: KEEP IN MIND NOT ALL RESUMES HAVE PROJECTS. IF THE RESUME DOES NOT HAVE PROJECTS, RESPOND WITH "None". IF THEY ARE NOT LOOKING FOR A SOFTWARE DEVELOPMENT/ENGINEERING JOB, RESPOND with "None"
                                 List any relevant projects they have worked on, separated by commas. Limit yourself to max 3 projects, ordered from most to least relevant. Similar to related Work, provide a list of 1 sentence summaries.
                                 Again, not all resumes have projects. This is really only relevant if they are looking to apply for software development/engineering job, so only take in projects if they are looking for these jobs.
@@ -101,7 +97,7 @@ class chatManager:
                             PersonalWebsite: Developed a personal website to showcase my projects
                         ]
                         skills: Python, Java, C++, SQL, HTML, CSS, JavaScript
-                        Education: True
+                        Education: Bachelor's Degree in Computer Science from University of Toronto
                         Keywords: Django, Flask, REST API, AWS, Azure, Docker, Kubernetes
                     }
                     (For say, an accountant job)
@@ -112,16 +108,16 @@ class chatManager:
                         ]
                         skills: Accounting, Microsoft Excel, Quickbooks, Communication, Research, Leadership
                         Projects: None
-                        Education: True
+                        Education: Bachelor's Degree in Accounting from University of British Columbia
                         Keywords: Financial Records, Managed, Excel, Quickbooks, Communication, Research, Leadership
                     }
-                    (For say, a Teenager applying for retail worker positions. Education is True as  retail generally do not need a degree, not even a high school diploma)
+                    (For say, a Teenager applying for retail worker positions. )
                     {
                         previousWork: False
                         relatedWork: None
                         skills: Customer Service, Microsoft Office, Communication, Research, Leadership
                         Projects: None
-                        Education: True
+                        Education: High School Diploma
                         Keywords: Customer Service, Communicated, Led, Managed, Raised, Engaged, Problem Solving
                     }
                     (The person did not provide any info except their job title)
@@ -130,7 +126,7 @@ class chatManager:
                         relatedWork: None
                         skills: None
                         Projects: None
-                        Education: False
+                        Education: None
                         Keywords: None
                     }
 
