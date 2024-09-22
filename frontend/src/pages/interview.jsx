@@ -21,6 +21,9 @@ const Interview = () => {
 
     const [isLoadingAnalyses, setIsLoadingAnalyses] = useState(false);
 
+    const [times, setTimes] = useState([]);
+    const [startTime, setStartTime] = useState(0);
+
     useEffect(() => {
         const summaryJSON = JSON.parse(window.localStorage.getItem('summary'));
         const questionsJSON = JSON.parse(window.localStorage.getItem('questions'));
@@ -109,9 +112,14 @@ const Interview = () => {
     const nextQuestion = async () => {
         stopSpeechRecognition();
     
+        const endTime = Date.now();
+        const elapsedTime = (endTime - startTime) / 1000;
+        setTimes(prevTimes => [...prevTimes, elapsedTime]);
+
         // Check if the interview is done
         if (currentQuestion < questionCount) {
             setCurrentQuestion(prev => prev + 1);
+            setStartTime(Date.now());
         } else {
             // Ensure the last transcript is saved before submitting
             setTranscriptions(prevTranscriptions => {
@@ -157,6 +165,7 @@ const Interview = () => {
     useEffect(() => {
         if (currentQuestion <= questionCount - 1) {
             startSpeechRecognition();
+            setStartTime(Date.now());
         }
     }, [currentQuestion]);
 
@@ -176,7 +185,14 @@ const Interview = () => {
     const playbackScreen = () => {
         const transcriptionsArray = Object.values(transcriptions);
         window.localStorage.setItem('transcriptions', JSON.stringify(transcriptionsArray));
-
+    
+        // Function to calculate words per minute
+        const calculateWPM = (transcription, timeInSeconds) => {
+            const wordCount = transcription ? transcription.split(' ').filter(word => word.length > 0).length : 0;
+            const timeInMinutes = timeInSeconds / 60;
+            return timeInMinutes > 0 ? (wordCount / timeInMinutes).toFixed(2) : 0; // Ensure no division by zero
+        };
+    
         return (
             <div>
                 <h1>Interview Playback</h1>
@@ -187,6 +203,10 @@ const Interview = () => {
                             <h5>{questions[index + 1]}</h5>
                             <p>{transcriptionOBJ.transcription}</p>
                             <p>{analyses['analyses'][index]}</p>
+                            <p>Time taken: {times[index + 1]} seconds</p>
+    
+                            {/* Display WPM */}
+                            <p>Words per minute: {calculateWPM(transcriptionOBJ.transcription, times[index + 1])}</p>
                         </div>
                     ))}
                 </div>
