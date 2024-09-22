@@ -77,6 +77,7 @@ export default function Setup() {
             if (response.ok) {
                 // Handle successful submission
                 console.log('Form submitted successfully');
+                console.log('Response:', await response.json());
             } else {
                 // Handle errors
                 console.error('Failed to submit the form');

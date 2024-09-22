@@ -19,7 +19,6 @@ def testData(request):
 @api_view(['POST'])
 def processResumeInfo(request):
     serializer = ResumeInfoSerializer(data=request.data)
-    response_content = ''
     if serializer.is_valid():
         # serializer.save()
         print("Received POST data:", request.data)
@@ -31,7 +30,7 @@ def processResumeInfo(request):
     print(resume_data)
     questions = chat_manager.generateQuestions(10, resume_data)
     print(questions)
-    return Response(serializer.data)
+    return Response({"summary": resume_data, "questions": questions})
 
 @api_view(['POST'])
 def setupData(request):
