@@ -231,7 +231,7 @@ const Interview = () => {
                         <div className="name-tag">You</div>
                     </div>
                     <div className="video-feed" id="interviewer-video">
-                        <div className="black-screen" /> {/* Placeholder for interviewer */}
+                        <img src="https://i.imgur.com/GjcpCja.jpeg" alt="interviewer" className="video-element" />
                         <div className="name-tag">Interviewer</div>
                     </div>
                 </div>
@@ -248,7 +248,7 @@ const Interview = () => {
                         </Stepper>
 
                         {questions[currentQuestion + 1] && (
-                            <div className="question-text" style={{position: 'relative', display: 'grid', marginTop: '4%', width: '100%', justifyContent: 'center' }}>
+                            <div className="question-text" style={{position: 'relative', display: 'grid', marginTop: '4%', width: '100%', justifyContent: 'center', }}>
                                 <p>{questions[currentQuestion + 1]}</p>
                             </div>
                         )}
