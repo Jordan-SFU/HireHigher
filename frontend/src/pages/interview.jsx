@@ -7,11 +7,10 @@ const Interview = () => {
     const navigate = useNavigate();
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [recordings, setRecordings] = useState({});
+    const [transcriptions, setTranscriptions] = useState({});
     const videoRef = useRef(null);
     const streamRef = useRef(null);
-    const mediaRecorderRef = useRef(null);
-    const chunksRef = useRef([]);
+    const recognitionRef = useRef(null); // Reference for the speech recognition instance
     const steps = Array.from({ length: 10 }, (_, i) => `Question ${i + 1}`);
     const [isDone, setIsDone] = useState(false);
 
@@ -31,83 +30,94 @@ const Interview = () => {
         }
     };
 
-    // Start audio recording
-    const startRecording = async () => {
-        const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorderRef.current = new MediaRecorder(audioStream);
-        mediaRecorderRef.current.ondataavailable = event => {
-            chunksRef.current.push(event.data);
-        };
-        mediaRecorderRef.current.onstop = () => {
-            const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
-            chunksRef.current = [];
+    // Initialize and start speech recognition
+    const startSpeechRecognition = () => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            console.error('SpeechRecognition API not supported in this browser.');
+            return;
+        }
 
-            // Save the recording for the current question
-            setRecordings(prevRecordings => ({
-                ...prevRecordings,
-                [currentQuestion]: blob
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US'; // Set the desired language
+
+        recognition.onresult = (event) => {
+            const transcript = Array.from(event.results)
+                .map(result => result[0].transcript)
+                .join('');
+            console.log('Transcript:', transcript);
+
+            // Save the transcription for the current question
+            setTranscriptions(prevTranscriptions => ({
+                ...prevTranscriptions,
+                [currentQuestion]: transcript
             }));
         };
-        mediaRecorderRef.current.start();
+
+        recognition.onerror = (event) => {
+            console.error('SpeechRecognition error:', event.error);
+        };
+
+        recognitionRef.current = recognition;
+        recognition.start();
     };
 
-    // Stop audio recording
-    const stopRecording = () => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-            mediaRecorderRef.current.stop();
+    // Stop speech recognition
+    const stopSpeechRecognition = () => {
+        if (recognitionRef.current) {
+            recognitionRef.current.stop();
         }
     };
 
-    // Move to the next question and handle recording transitions
+    // Move to the next question and handle transitions
     const nextQuestion = () => {
-        stopRecording(); // Stop recording for the current question
+        stopSpeechRecognition(); // Stop transcription for the current question
 
         // Check if the interview is done
         if (currentQuestion < 9) {
             setCurrentQuestion(prev => prev + 1); // Move to the next question
         } else {
             setIsDone(true);
-            submitRecordings();
+            submitTranscriptions();
             navigate('/results');
         }
     };
 
-    // Submit the recordings to the backend
-    const submitRecordings = async () => {
+    // Submit the transcriptions to the backend
+    const submitTranscriptions = async () => {
         const formData = new FormData();
-        Object.values(recordings).forEach((recording, index) => {
-            formData.append(`question${index + 1}`, recording);
+        Object.entries(transcriptions).forEach(([questionIndex, transcription]) => {
+            formData.append(`question${parseInt(questionIndex) + 1}`, transcription);
         });
 
         try {
-            const response = await fetch('http://18.219.68.51:3000/views/',
-                {
-                    method: 'POST',
-                    body: formData
-                }
-            ); 
+            const response = await fetch('http://18.219.68.51:3000/transcriptions/', {
+                method: 'POST',
+                body: formData
+            });
             if (response.ok) {
-                console.log('Recordings submitted successfully');
-            }
-            else {
-                console.error('Failed to submit recordings');
+                console.log('Transcriptions submitted successfully');
+            } else {
+                console.error('Failed to submit transcriptions');
             }
         } catch (err) {
-            console.error('Error submitting recordings: ', err);
+            console.error('Error submitting transcriptions: ', err);
         }
     };
 
-    // Start a new recording whenever the question changes
+    // Start transcription whenever the question changes
     useEffect(() => {
         if (currentQuestion <= 9) {
-            startRecording(); // Start recording the new question
+            startSpeechRecognition(); // Start transcription for the new question
         }
     }, [currentQuestion]);
 
     useEffect(() => {
         // Start the video automatically on component mount
         startVideo();
-        startRecording(); // Start the first question recording immediately
+        startSpeechRecognition(); // Start the first question transcription immediately
 
         return () => {
             // Cleanup video and stop any ongoing media streams
@@ -115,22 +125,24 @@ const Interview = () => {
                 const tracks = streamRef.current.getTracks();
                 tracks.forEach(track => track.stop());
             }
-            stopRecording();
+            stopSpeechRecognition();
         };
     }, []);
 
     const playbackScreen = () => {
-        const recordingsArray = Object.values(recordings);
-        window.localStorage.setItem('recordings', JSON.stringify(recordingsArray));
-        
-        // display all recordings to current screen
+        const transcriptionsArray = Object.values(transcriptions);
+        window.localStorage.setItem('transcriptions', JSON.stringify(transcriptionsArray));
 
+        // Display all transcriptions to current screen
         return (
             <div>
                 <h1>Interview Playback</h1>
                 <div>
-                    {recordingsArray.map((recording, index) => (
-                        <audio key={index} controls src={URL.createObjectURL(recording)} />
+                    {transcriptionsArray.map((transcription, index) => (
+                        <div key={index}>
+                            <h3>Question {index + 1}</h3>
+                            <p>{transcription}</p>
+                        </div>
                     ))}
                 </div>
             </div>

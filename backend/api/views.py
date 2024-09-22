@@ -29,3 +29,8 @@ def processResumeInfo(request):
 def setupData(request):
     print("Received POST data:", request.data)
     return Response({"message": "Data received successfully"})
+
+@api_view(['POST'])
+def processTranscriptions(request):
+    print("Received POST data:", request.data)
+    return Response({"message": "Data received successfully"})
