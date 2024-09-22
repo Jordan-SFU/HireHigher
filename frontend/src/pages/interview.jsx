@@ -200,7 +200,7 @@ const Interview = () => {
             </div>
 
             {/* Question Stepper */}
-            {questionCount - 1 > 0 ? (
+            {questionCount > 0 ? (
                 <div className="stepper-section">
                     <Stepper activeStep={currentQuestion} alternativeLabel>
                         {Object.values(questions).map((_, index) => (
@@ -215,10 +215,10 @@ const Interview = () => {
                     >
                         {currentQuestion < questionCount - 1 ? 'Next Question' : 'Finish Interview'}
                     </Button>
-                    {questions[currentQuestion] && (
+                    {questions[currentQuestion + 1] && (
                         <div className="question-text">
                             <h3>Question {currentQuestion + 1}</h3>
-                            <p>{questions[currentQuestion]}</p>
+                            <p>{questions[currentQuestion + 1]}</p>
                         </div>
                     )}
                 </div>
