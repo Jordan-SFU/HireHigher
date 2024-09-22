@@ -85,49 +85,52 @@ class chatManager:
                     Example Answers:
                     (For say, a software developer)
                     {
-                        previousWork: Software Developer@Microsoft, Software Developer@Google, Web Developer@Amazon
-                        relatedWork: [
-                            Software Developer@Microsoft: Developed and maintained software for the Windows operating system
-                            Software Developer@Google: Developed and maintained the Google search engine
-                            Web Developer@Amazon: Developed and maintained the Amazon website
+                        "previousWork": [
+                            "Software Developer@Microsoft", 
+                            "Software Developer@Google", 
+                            "Web Developer@Amazon"]
+                        "relatedWork": [
+                            "Software Developer@Microsoft: Developed and maintained software for the Windows operating system",
+                            "Software Developer@Google: Developed and maintained the Google search engine",
+                            "Web Developer@Amazon: Developed and maintained the Amazon website"
                         ]
-                        Projects: [
-                            ChatGPTClone: Developed a chatbot similar to GPT-3
-                            WebScraper: Developed a web scraper to scrape
-                            PersonalWebsite: Developed a personal website to showcase my projects
+                        "Projects": [
+                            "ChatGPTClone: Developed a chatbot similar to GPT-3",
+                            "WebScraper: Developed a web scraper to scrape",
+                            "PersonalWebsite: Developed a personal website to showcase my projects"
                         ]
-                        skills: Python, Java, C++, SQL, HTML, CSS, JavaScript
-                        Education: Bachelor's Degree in Computer Science from University of Toronto
-                        Keywords: Django, Flask, REST API, AWS, Azure, Docker, Kubernetes
+                        "skills": ["Python", "Java", "C++", "SQL", "HTML", "CSS", "JavaScript"]
+                        "Education": "Bachelor's Degree in Computer Science from University of Toronto"
+                        "Keywords": ["Django", "Flask", "REST API", "AWS", "Azure", "Docker", "Kubernetes"]
                     }
                     (For say, an accountant job)
                     {
-                        previousWork: Accountant@Deloitte, Cashier@McDonalds,
-                        relatedWork: [
-                            Accountant@Deloitte: Managed financial records for a variety of clients
+                        "previousWork": ["Accountant@Deloitte", "Cashier@McDonalds"]
+                        "relatedWork": [
+                            "Accountant@Deloitte: Managed financial records for a variety of clients"
                         ]
-                        skills: Accounting, Microsoft Excel, Quickbooks, Communication, Research, Leadership
-                        Projects: None
-                        Education: Bachelor's Degree in Accounting from University of British Columbia
-                        Keywords: Financial Records, Managed, Excel, Quickbooks, Communication, Research, Leadership
+                        "skills": ["Accounting", "Microsoft Excel", "Quickbooks", "Communication", "Research", "Leadership"]
+                        "Projects": []
+                        "Education": "Bachelor's Degree in Accounting from University of British Columbia"
+                        "Keywords": ["Financial Records", "Managed", "Excel", "Quickbooks", "Communication", "Research", "Leadership"]
                     }
                     (For say, a Teenager applying for retail worker positions. )
                     {
-                        previousWork: False
-                        relatedWork: None
-                        skills: Customer Service, Microsoft Office, Communication, Research, Leadership
-                        Projects: None
-                        Education: High School Diploma
-                        Keywords: Customer Service, Communicated, Led, Managed, Raised, Engaged, Problem Solving
+                        "previousWork": []
+                        "relatedWork": []
+                        "skills": ["Customer Service", "Microsoft Office", "Communication", "Research", "Leadership"]
+                        "Projects": []
+                        "Education": "High School Diploma"
+                        "Keywords": ["Customer Service", "Communicated", "Led", "Managed", "Raised", "Engaged", "Problem Solving"]
                     }
                     (The person did not provide any info except their job title)
                     {
-                        previousWork: False
-                        relatedWork: None
-                        skills: None
-                        Projects: None
-                        Education: None
-                        Keywords: None
+                        "previousWork": []
+                        "relatedWork": []
+                        "skills": []
+                        "Projects": []
+                        "Education": ""
+                        "Keywords": []
                     }
 
                     """
