@@ -7,7 +7,7 @@ load_dotenv()
 
 
 # Set the API key when using OpenAI API
-openai.api_key = "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"
+openai.api_key = ""
 
 class chatManager:
 
