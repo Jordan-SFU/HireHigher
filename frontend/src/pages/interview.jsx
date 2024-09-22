@@ -10,24 +10,44 @@ const Interview = () => {
     const [transcriptions, setTranscriptions] = useState({});
     const videoRef = useRef(null);
     const streamRef = useRef(null);
-    const recognitionRef = useRef(null); // Reference for the speech recognition instance
-    const steps = Array.from({ length: 10 }, (_, i) => `Question ${i + 1}`);
+    const recognitionRef = useRef(null);
     const [isDone, setIsDone] = useState(false);
 
-    const [questions, setQuestions] = useState([]);
+    const [questions, setQuestions] = useState({});
+    const [summary, setSummary] = useState({});
+
+    const [questionCount, setQuestionCount] = useState(0);
 
     useEffect(() => {
-        // get summary and questions from local storage
-        const summary = window.localStorage.getItem('summary');
-        const questions = window.localStorage.getItem('questions');
+        const summaryJSON = JSON.parse(window.localStorage.getItem('summary'));
+        const questionsJSON = JSON.parse(window.localStorage.getItem('questions'));
 
-        // clear local storage
-        window.localStorage.removeItem('summary');
-        window.localStorage.removeItem('questions');
+        console.log('Summary from storage:', summaryJSON);
+        console.log('Questions from storage:', questionsJSON);
 
-        // set questions
-        setQuestions(questions);
+        setSummary(summaryJSON);
+        setQuestions(questionsJSON);
+
+        // Cleanup after state is set to ensure data is used first
+        return () => {
+            //window.localStorage.removeItem('summary');
+            //window.localStorage.removeItem('questions');
+        };
     }, []);
+
+    useEffect(() => {
+        console.log('Updated Summary:', summary);
+        console.log('Updated Questions:', questions);
+
+        let count = 0;
+        for (let key in questions) {
+            if (questions.hasOwnProperty(key)) {
+                count++;
+            }
+        }
+        setQuestionCount(count);
+        console.log('Question Count:', count);
+    }, [summary, questions]);
 
     // Start the video feed
     const startVideo = async () => {
@@ -36,7 +56,6 @@ const Interview = () => {
             videoRef.current.srcObject = stream;
             streamRef.current = stream;
 
-            // Ensure video plays only after the metadata is loaded
             videoRef.current.addEventListener('loadedmetadata', () => {
                 videoRef.current.play();
             });
@@ -56,7 +75,7 @@ const Interview = () => {
         const recognition = new SpeechRecognition();
         recognition.continuous = true;
         recognition.interimResults = false;
-        recognition.lang = 'en-US'; // Set the desired language
+        recognition.lang = 'en-US';
 
         recognition.onresult = (event) => {
             const transcript = Array.from(event.results)
@@ -88,11 +107,11 @@ const Interview = () => {
 
     // Move to the next question and handle transitions
     const nextQuestion = () => {
-        stopSpeechRecognition(); // Stop transcription for the current question
+        stopSpeechRecognition();
 
         // Check if the interview is done
-        if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(prev => prev + 1); // Move to the next question
+        if (currentQuestion < questionCount - 1) {
+            setCurrentQuestion(prev => prev + 1);
         } else {
             setIsDone(true);
             submitTranscriptions();
@@ -124,18 +143,16 @@ const Interview = () => {
 
     // Start transcription whenever the question changes
     useEffect(() => {
-        if (currentQuestion <= questions.length - 1) {
-            startSpeechRecognition(); // Start transcription for the new question
+        if (currentQuestion <= questionCount - 1) {
+            startSpeechRecognition();
         }
     }, [currentQuestion]);
 
     useEffect(() => {
-        // Start the video automatically on component mount
         startVideo();
-        startSpeechRecognition(); // Start the first question transcription immediately
+        startSpeechRecognition();
 
         return () => {
-            // Cleanup video and stop any ongoing media streams
             if (streamRef.current) {
                 const tracks = streamRef.current.getTracks();
                 tracks.forEach(track => track.stop());
@@ -148,7 +165,6 @@ const Interview = () => {
         const transcriptionsArray = Object.values(transcriptions);
         window.localStorage.setItem('transcriptions', JSON.stringify(transcriptionsArray));
 
-        // Display all transcriptions to current screen
         return (
             <div>
                 <h1>Interview Playback</h1>
@@ -178,33 +194,37 @@ const Interview = () => {
                     <div className="name-tag">You</div>
                 </div>
                 <div className="video-feed" id="interviewer-video">
-                    <div className="black-screen" /> {/* This is the interviewer cam */}
+                    <div className="black-screen" /> {/* Placeholder for interviewer */}
                     <div className="name-tag">Interviewer</div>
                 </div>
             </div>
 
             {/* Question Stepper */}
-            <div className="stepper-section">
-                <Stepper activeStep={currentQuestion} alternativeLabel>
-                    {steps.map((label, index) => (
-                        <Step key={index}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                <Button
-                    className="control-btn"
-                    onClick={nextQuestion}
-                >
-                    {currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Interview'}
-                </Button>
-                {questions[currentQuestion] && (
-                    <div className="question-text">
-                        <h3>Question {currentQuestion + 1}</h3>
-                        <p>{questions[currentQuestion]}</p>
-                    </div>
-                )}
-            </div>
+            {questionCount - 1 > 0 ? (
+                <div className="stepper-section">
+                    <Stepper activeStep={currentQuestion} alternativeLabel>
+                        {Object.values(questions).map((_, index) => (
+                            <Step key={index}>
+                                <StepLabel>{`Question ${index + 1}`}</StepLabel>
+                            </Step>
+                        ))}
+                    </Stepper>
+                    <Button
+                        className="control-btn"
+                        onClick={nextQuestion}
+                    >
+                        {currentQuestion < questionCount - 1 ? 'Next Question' : 'Finish Interview'}
+                    </Button>
+                    {questions[currentQuestion] && (
+                        <div className="question-text">
+                            <h3>Question {currentQuestion + 1}</h3>
+                            <p>{questions[currentQuestion]}</p>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <p>Loading questions...</p> // Fallback in case questions are still being loaded
+            )}
 
             {/* Playback Screen */}
             {isDone && playbackScreen()}

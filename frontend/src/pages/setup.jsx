@@ -79,9 +79,9 @@ export default function Setup() {
                 let data = await response.json();
                 console.log('Form submitted successfully');
 
-                let questions = JSON.parse(data['questions']);
+                let questions = data['questions'];
                 console.log('Questions:', questions);
-                let summary = JSON.parse(data['summary']);
+                let summary = data['summary'];
                 console.log('Summary:', summary);
 
 
