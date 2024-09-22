@@ -25,7 +25,7 @@ def processResumeInfo(request):
 
     print("Received POST data:", request.data)
     chat_manager = chatManager()
-    user_input = request.data["resume"]
+    user_input = request.data
     resume_data = chat_manager.analyzeData(user_input)
     print(resume_data)
     questions = chat_manager.generateQuestions(5, resume_data)

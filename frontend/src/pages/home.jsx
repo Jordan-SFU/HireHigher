@@ -2,11 +2,16 @@ import React from "react";
 import { IconButton } from "@mui/material";
 import StartIcon from '@mui/icons-material/Start';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import "../styles/Home.css";
 
 export default function Home() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        window.localStorage.clear();
+    }, []);
 
     return (
         <>
