@@ -14,6 +14,21 @@ const Interview = () => {
     const steps = Array.from({ length: 10 }, (_, i) => `Question ${i + 1}`);
     const [isDone, setIsDone] = useState(false);
 
+    const [questions, setQuestions] = useState([]);
+
+    useEffect(() => {
+        // get summary and questions from local storage
+        const summary = window.localStorage.getItem('summary');
+        const questions = window.localStorage.getItem('questions');
+
+        // clear local storage
+        window.localStorage.removeItem('summary');
+        window.localStorage.removeItem('questions');
+
+        // set questions
+        setQuestions(questions);
+    }, []);
+
     // Start the video feed
     const startVideo = async () => {
         try {
@@ -76,7 +91,7 @@ const Interview = () => {
         stopSpeechRecognition(); // Stop transcription for the current question
 
         // Check if the interview is done
-        if (currentQuestion < 9) {
+        if (currentQuestion < questions.length - 1) {
             setCurrentQuestion(prev => prev + 1); // Move to the next question
         } else {
             setIsDone(true);
@@ -109,7 +124,7 @@ const Interview = () => {
 
     // Start transcription whenever the question changes
     useEffect(() => {
-        if (currentQuestion <= 9) {
+        if (currentQuestion <= questions.length - 1) {
             startSpeechRecognition(); // Start transcription for the new question
         }
     }, [currentQuestion]);
@@ -181,8 +196,14 @@ const Interview = () => {
                     className="control-btn"
                     onClick={nextQuestion}
                 >
-                    {currentQuestion < 9 ? 'Next Question' : 'Finish Interview'}
+                    {currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Interview'}
                 </Button>
+                {questions[currentQuestion] && (
+                    <div className="question-text">
+                        <h3>Question {currentQuestion + 1}</h3>
+                        <p>{questions[currentQuestion]}</p>
+                    </div>
+                )}
             </div>
 
             {/* Playback Screen */}

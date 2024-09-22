@@ -85,49 +85,52 @@ class chatManager:
                     Example Answers:
                     (For say, a software developer)
                     {
-                        previousWork: Software Developer@Microsoft, Software Developer@Google, Web Developer@Amazon
-                        relatedWork: [
-                            Software Developer@Microsoft: Developed and maintained software for the Windows operating system
-                            Software Developer@Google: Developed and maintained the Google search engine
-                            Web Developer@Amazon: Developed and maintained the Amazon website
+                        "previousWork": [
+                            "Software Developer@Microsoft", 
+                            "Software Developer@Google", 
+                            "Web Developer@Amazon"]
+                        "relatedWork": [
+                            "Software Developer@Microsoft: Developed and maintained software for the Windows operating system",
+                            "Software Developer@Google: Developed and maintained the Google search engine",
+                            "Web Developer@Amazon: Developed and maintained the Amazon website"
                         ]
-                        Projects: [
-                            ChatGPTClone: Developed a chatbot similar to GPT-3
-                            WebScraper: Developed a web scraper to scrape
-                            PersonalWebsite: Developed a personal website to showcase my projects
+                        "Projects": [
+                            "ChatGPTClone: Developed a chatbot similar to GPT-3",
+                            "WebScraper: Developed a web scraper to scrape",
+                            "PersonalWebsite: Developed a personal website to showcase my projects"
                         ]
-                        skills: Python, Java, C++, SQL, HTML, CSS, JavaScript
-                        Education: Bachelor's Degree in Computer Science from University of Toronto
-                        Keywords: Django, Flask, REST API, AWS, Azure, Docker, Kubernetes
+                        "skills": ["Python", "Java", "C++", "SQL", "HTML", "CSS", "JavaScript"]
+                        "Education": "Bachelor's Degree in Computer Science from University of Toronto"
+                        "Keywords": ["Django", "Flask", "REST API", "AWS", "Azure", "Docker", "Kubernetes"]
                     }
                     (For say, an accountant job)
                     {
-                        previousWork: Accountant@Deloitte, Cashier@McDonalds,
-                        relatedWork: [
-                            Accountant@Deloitte: Managed financial records for a variety of clients
+                        "previousWork": ["Accountant@Deloitte", "Cashier@McDonalds"]
+                        "relatedWork": [
+                            "Accountant@Deloitte: Managed financial records for a variety of clients"
                         ]
-                        skills: Accounting, Microsoft Excel, Quickbooks, Communication, Research, Leadership
-                        Projects: None
-                        Education: Bachelor's Degree in Accounting from University of British Columbia
-                        Keywords: Financial Records, Managed, Excel, Quickbooks, Communication, Research, Leadership
+                        "skills": ["Accounting", "Microsoft Excel", "Quickbooks", "Communication", "Research", "Leadership"]
+                        "Projects": []
+                        "Education": "Bachelor's Degree in Accounting from University of British Columbia"
+                        "Keywords": ["Financial Records", "Managed", "Excel", "Quickbooks", "Communication", "Research", "Leadership"]
                     }
                     (For say, a Teenager applying for retail worker positions. )
                     {
-                        previousWork: False
-                        relatedWork: None
-                        skills: Customer Service, Microsoft Office, Communication, Research, Leadership
-                        Projects: None
-                        Education: High School Diploma
-                        Keywords: Customer Service, Communicated, Led, Managed, Raised, Engaged, Problem Solving
+                        "previousWork": []
+                        "relatedWork": []
+                        "skills": ["Customer Service", "Microsoft Office", "Communication", "Research", "Leadership"]
+                        "Projects": []
+                        "Education": "High School Diploma"
+                        "Keywords": ["Customer Service", "Communicated", "Led", "Managed", "Raised", "Engaged", "Problem Solving"]
                     }
                     (The person did not provide any info except their job title)
                     {
-                        previousWork: False
-                        relatedWork: None
-                        skills: None
-                        Projects: None
-                        Education: None
-                        Keywords: None
+                        "previousWork": []
+                        "relatedWork": []
+                        "skills": []
+                        "Projects": []
+                        "Education": ""
+                        "Keywords": []
                     }
 
                     """
@@ -168,12 +171,13 @@ class chatManager:
                             d. What was the most challenging skill you have had to learn and how did you learn it?
 
                     Again, the questions MUST make sense for the type of interview they are doing. If they are applying as a cashier, do not ask them about their Python Coding skills. Generate the questions in a list of strings like this:
-                    ["What were some challenges you faced working at Google?", 
+                    {{"What were some challenges you faced working at Google?", 
                     "What was the most challenging project you have worked on and how did you overcome it?", 
-                    "What was the most challenging skill you have had to learn and how did you learn it?"]
+                    "What was the most challenging skill you have had to learn and how did you learn it?"}}
 
-                    Again, the questions should be in the format of a python list of strings:
-                    ["Question 1", "Question 2", "Question 3", ...]
+                    Again, the questions should be in the format of a json list, with each question having the key "(question number)" where the question number is the number of the question. e.g. "1", "2", "3", etc.
+                    example:
+                    {{"1": "What were some challenges you faced working at Google?", "2": "What was the most challenging project you have worked on and how did you overcome it?", "3": "What was the most challenging skill you have had to learn and how did you learn it?", ...}}
                     """
                 }
             ]

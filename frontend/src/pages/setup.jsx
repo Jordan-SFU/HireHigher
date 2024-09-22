@@ -76,8 +76,20 @@ export default function Setup() {
     
             if (response.ok) {
                 // Handle successful submission
+                let data = await response.json();
                 console.log('Form submitted successfully');
-                console.log('Response:', await response.json());
+
+                let questions = JSON.parse(data['questions']);
+                console.log('Questions:', questions);
+                let summary = JSON.parse(data['summary']);
+                console.log('Summary:', summary);
+
+
+
+                // save the response to local storage
+                localStorage.setItem('summary', summary);
+                localStorage.setItem('questions', questions);
+
             } else {
                 // Handle errors
                 console.error('Failed to submit the form');
