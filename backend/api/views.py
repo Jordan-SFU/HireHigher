@@ -40,7 +40,10 @@ def setupData(request):
 @api_view(['POST'])
 def processTranscriptions(request):
     chat_manager = chatManager()
+    analyses = []
     for i in range(0, len(request.data)):
         user_input = request.data['question' + str(i + 1)]
         analysis = chat_manager.analyzeData(user_input)
+        analyses.append(analysis)
         print(analysis)
+    return Response({"analyses": analyses})
