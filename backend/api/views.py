@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from base.models import Item, ResumeInfo
 from .serializers import ItemSerializer, ResumeInfoSerializer
 from helpers.chat import chatManager
+from helpers.fillerCounter import fillerCounter
 
 @api_view(['GET'])
 def getData(request):
@@ -41,6 +42,7 @@ def setupData(request):
 def processTranscriptions(request):
     chat_manager = chatManager()
     analyses = []
+    filler_words_arr = []
 
     print("Received POST data:", request.data)
     print("\n\n\n")
@@ -48,6 +50,9 @@ def processTranscriptions(request):
     for i in range(0, len(request.data) // 2):  # Divide by 2 because each question has both question text and transcription
         question_key = f'question{i + 1}'
         transcription_key = f'transcription{i + 1}'
+
+        filler_words = fillerCounter(request.data[transcription_key])
+        filler_words_arr.append(filler_words)
 
         # Check if both the question and transcription exist
         if question_key not in request.data or transcription_key not in request.data:
@@ -67,4 +72,4 @@ def processTranscriptions(request):
         print(analysis)
         print("\n\n\n")
         
-    return Response({"analyses": analyses})
+    return Response({"analyses": analyses, "filler_words": filler_words_arr})
