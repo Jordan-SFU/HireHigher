@@ -10,10 +10,10 @@ import { getOCRText } from '../utils/OCR_API.js';
 
 const theme = createTheme({
     typography: {
-      fontFamily: 'Sans, Arial, sans-serif',
+        fontFamily: 'Sans, Arial, sans-serif',
     },
-  });
-  
+});
+
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -67,14 +67,14 @@ export default function Setup() {
         formData.append('resume', ocrText); // append the detected text from the resume
         formData.append('additionalInfo', additionalInfo);
         formData.append('linkedInProfile', linkedInProfile);
-    
+
         try {
             // Send a POST request to your backend (adjust the URL accordingly)
             const response = await fetch('http://18.219.68.51:3000/process/', {
                 method: 'POST',
                 body: formData, // FormData will format everything correctly including the file
             });
-    
+
             if (response.ok) {
                 // Handle successful submission
                 let data = await response.json();
@@ -105,8 +105,8 @@ export default function Setup() {
         0: {
             label: 'Job Title',
             content: (
-                <div>
-                    <Typography>Job Title</Typography>
+                <div className='content'>
+                    <Typography>What Job are you applying for?</Typography>
                     <TextField
                         label="Job Title"
                         value={jobTitle}
@@ -119,7 +119,7 @@ export default function Setup() {
         1: {
             label: 'Resume',
             content: (
-                <div>
+                <div className='content'>
                     <Typography>Resume</Typography>
                     <Button
                         component="label"
@@ -140,22 +140,28 @@ export default function Setup() {
         2: {
             label: 'Additional Information',
             content: (
-                <div>
+                <div className='content'>
                     <Typography>Additional Information</Typography>
-                    <TextField
-                        label="Additional Information"
-                        value={additionalInfo}
-                        multiline
-                        rows={6}
-                        onChange={(e) => setAdditionalInfo(e.target.value)}
-                        placeholder='Required skills, experience, etc.'
-                    />
-                    <TextField
-                        label="LinkedIn Profile"
-                        value={linkedInProfile}
-                        onChange={(e) => setLinkedInProfile(e.target.value)}
-                        placeholder='linkedin.com/in/yourprofile'
-                    />
+                    <div className="text-field">
+                        <TextField
+                            label="Job Information"
+                            value={additionalInfo}
+                            multiline
+                            fullWidth
+                            rows={6}
+                            onChange={(e) => setAdditionalInfo(e.target.value)}
+                            placeholder='Required skills, experience, etc.'
+                        />
+                    </div>
+                    <br />
+                    <div className="text-field">
+                        <TextField
+                            label="LinkedIn Profile Link"
+                            value={linkedInProfile}
+                            onChange={(e) => setLinkedInProfile(e.target.value)}
+                            placeholder='linkedin.com/in/yourprofile'
+                        />
+                    </div>
                 </div>
             )
         }
@@ -167,16 +173,18 @@ export default function Setup() {
         <ThemeProvider theme={theme}>
             {!hasSubmitted && (
                 <>
-                    <Stepper activeStep={activeStep}
-                    style={{backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px'}}
-                    
-                    >
-                        {stepLabels.map((label, index) => (
-                            <Step key={index}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
+                    <div className='stepper'>
+                        <Stepper activeStep={activeStep}
+                            style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px' }}
+
+                        >
+                            {stepLabels.map((label, index) => (
+                                <Step key={index}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                    </div>
                     <div className='button-container'>
                         <Button
                             onClick={() => { setActiveStep(prev => Math.max(prev - 1, 0)) }}
@@ -185,10 +193,13 @@ export default function Setup() {
                             Back
                         </Button>
                         <Button
-                            onClick={() => { setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1)) }}
-                            disabled={activeStep === stepLabels.length - 1}
+                            onClick={() => {
+                                activeStep === stepLabels.length - 1 ? handleSubmit() :
+                                    setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1))
+                            }}
+                            disabled={activeStep === stepLabels.length}
                         >
-                            Next
+                            {activeStep === stepLabels.length - 1 ? 'Submit' : 'Next'}
                         </Button>
                     </div>
                     <Box>
@@ -196,14 +207,6 @@ export default function Setup() {
                             {steps[activeStep]?.content}
                         </div>
                     </Box>
-
-                    {activeStep === stepLabels.length - 1 && (
-                        <Button
-                            onClick={handleSubmit}
-                        >
-                            Submit
-                        </Button>
-                    )}
                 </>
             )}
             {hasSubmitted && <StartConfirmation canStart={!isLoadingResults} />}
