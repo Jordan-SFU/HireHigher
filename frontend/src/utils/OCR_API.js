@@ -15,7 +15,11 @@ const getOCRText = async (file) => {
 
     const data = await response.json();
     if (response.ok) {
-        return data.ParsedResults[0].ParsedText;
+        let text = '';
+        data.ParsedResults.forEach(result => {
+            text += result.ParsedText;
+        });
+        return text;
     } else {
         throw new Error(data.ErrorMessage || 'Error during OCR processing');
     }
