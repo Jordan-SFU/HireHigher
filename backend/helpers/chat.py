@@ -5,14 +5,9 @@ from dotenv import load_dotenv
 # API key is stored in a separate file
 load_dotenv()
 
-# Retrieve the API key from the environment
-api_key = os.getenv("OPENAI_API_KEY")
-
-if api_key is None:
-    raise ValueError("OPENAI_API_KEY is not set in the environment variables")
 
 # Set the API key when using OpenAI API
-openai.api_key = api_key
+openai.api_key = "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"
 
 class chatManager:
 
@@ -61,7 +56,8 @@ class chatManager:
                 {
                     "role": "system",
                     "content": """
-                    You are a job interviewer evaluating a candidate's response during an interview. Analyze the candidate's answer in terms of clarity, relevance, and how well it fits the job they are applying for.
+                    You are a job interviewer evaluating a candidate's response during an interview.
+                    Analyze the candidate's answer in terms of clarity, relevance, and how well it fits the job they are applying for.
                     """
                 },
                 {
@@ -259,10 +255,10 @@ e Graphic design, Music production, Biking
 
 }
 """
-analyzedData = chat_manager.analyzeData(user_input)
-print(analyzedData)
-questions = chat_manager.generateQuestions(10, user_input)
-print(questions)
-print(chat_manager.display_message_history())
-chat_manager.clear_chat_history()
-print(chat_manager.display_message_history())
+# analyzedData = chat_manager.analyzeData(user_input)
+# print(analyzedData)
+# questions = chat_manager.generateQuestions(5, user_input)
+# print(questions)
+# print(chat_manager.display_message_history())
+# chat_manager.clear_chat_history()
+# print(chat_manager.display_message_history())
