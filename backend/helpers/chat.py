@@ -168,12 +168,13 @@ class chatManager:
                             d. What was the most challenging skill you have had to learn and how did you learn it?
 
                     Again, the questions MUST make sense for the type of interview they are doing. If they are applying as a cashier, do not ask them about their Python Coding skills. Generate the questions in a list of strings like this:
-                    ["What were some challenges you faced working at Google?", 
+                    {{"What were some challenges you faced working at Google?", 
                     "What was the most challenging project you have worked on and how did you overcome it?", 
-                    "What was the most challenging skill you have had to learn and how did you learn it?"]
+                    "What was the most challenging skill you have had to learn and how did you learn it?"}}
 
-                    Again, the questions should be in the format of a python list of strings:
-                    ["Question 1", "Question 2", "Question 3", ...]
+                    Again, the questions should be in the format of a json list, with each question having the key "(question number)" where the question number is the number of the question. e.g. "1", "2", "3", etc.
+                    example:
+                    {{"1": "What were some challenges you faced working at Google?", "2": "What was the most challenging project you have worked on and how did you overcome it?", "3": "What was the most challenging skill you have had to learn and how did you learn it?", ...}}
                     """
                 }
             ]
