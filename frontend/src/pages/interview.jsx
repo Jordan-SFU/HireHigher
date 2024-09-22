@@ -127,13 +127,18 @@ const Interview = () => {
         });
 
         try {
+            // send transcriptions to local storage, and then to the backend
+            const transcriptionsArray = Object.values(transcriptions);
+            window.localStorage.setItem('transcriptions', JSON.stringify(transcriptionsArray));
+
             const response = await fetch('http://18.219.68.51:3000/transcriptions/', {
                 method: 'POST',
                 body: formData
             });
             if (response.ok) {
                 console.log('Transcriptions submitted successfully');
-                console.log(response);
+                let data = await response.json();
+                console.log(data);
             } else {
                 console.error('Failed to submit transcriptions');
             }

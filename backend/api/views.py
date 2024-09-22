@@ -39,6 +39,7 @@ def setupData(request):
 
 @api_view(['POST'])
 def processTranscriptions(request):
+    chat_manager = chatManager()
     try:
         # Assuming the transcript data is stored as a QueryDict in the format:
         # {'question1': ['transcript of user answer for question 1'], 'question2': ['transcript of user answer for question 2'], ...}
