@@ -195,7 +195,7 @@ const Interview = () => {
     
         return (
             <div className='feedback'>
-                <h1>Interview Playback</h1>
+                <h1>Interview Feedback</h1>
                 <div className='stats'>
                     {transcriptionsArray.map((transcriptionOBJ, index) => (
                         <div key={index} className='stat-block'>

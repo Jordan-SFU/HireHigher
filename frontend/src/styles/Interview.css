@@ -119,6 +119,16 @@ html {
     text-align: justify;
 }
 
+.stats h3 {
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.stats h5 {
+    font-size: 16px;
+    margin-left: 30px;
+}
+
 .stat-block {
     background-color: rgba(0,0,0,0.1);
     padding: 10px;
@@ -129,4 +139,9 @@ html {
 
 .feedback {
     overflow: auto;
+}
+
+.feedback h1 {
+    text-align: center;
+    font-size: 3em;
 }
