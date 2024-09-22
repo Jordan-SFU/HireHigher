@@ -24,12 +24,11 @@ def processResumeInfo(request):
         # serializer.save()
         print("Received POST data:", request.data)
 
-        chat_manager = chatManager()
-        user_input = request.data["resume"]
-        response_content = chat_manager.analyzeData(user_input)
-        print(response_content)
-
     print("Received POST data:", request.data)
+    chat_manager = chatManager()
+    user_input = request.data["resume"]
+    response_content = chat_manager.analyzeData(user_input)
+    print(response_content)
     return Response(serializer.data)
 
 @api_view(['POST'])
