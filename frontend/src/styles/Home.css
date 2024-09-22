@@ -33,3 +33,91 @@
     bottom: 5vh;
     right: 5vw;
 }
+
+.login-text {
+    margin-top: 50px;
+    font-size: 120px;
+    margin: 50px;
+    padding: 10px;
+    background: -webkit-linear-gradient(#5A0CD6, #BBA5DF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "poppins";
+    display: block;
+    color: white;
+    text-align: center; /* Align text to the left within the .navbar-brand element */
+    text-decoration: none;
+}
+
+.cssbuttons-io-button {
+    /* From https://css.glass */
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition: box-shadow 0.3s ease-in-out;
+      backdrop-filter: blur(19.8px);
+      -webkit-backdrop-filter: blur(19.8px);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      /**/
+      color: white;
+      font-family: inherit;
+      padding: 0.35em;
+      padding-left: 1.2em;
+      font-family: 'Poppins-light';
+      font-size: 17px;
+      font-weight: 500;
+      border-radius: 0.9em;
+      border: none;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+    
+      overflow: hidden;
+      position: relative;
+      height: 2.8em;
+      padding-right: 3.3em;
+      cursor: pointer;
+    }
+    
+    .cssbuttons-io-button .icon {
+      /* From https://css.glass */
+      background: rgba(255, 255, 255, 0.48);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(19.8px);
+      -webkit-backdrop-filter: blur(19.8px);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      /**/
+      margin-left: 1em;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.2em;
+      width: 2.2em;
+      border-radius: 0.7em;
+      box-shadow: 0.1em 0.1em 0.6em 0.2em #9e7ec2;
+      right: 0.3em;
+      transition: all 0.3s;
+    }
+    
+    .cssbuttons-io-button:hover .icon {
+      width: calc(100% - 0.6em);
+    }
+    
+    .cssbuttons-io-button .icon svg {
+      width: 1.1em;
+      transition: transform 0.3s;
+      color: #9e7ec2;
+    }
+    
+    .cssbuttons-io-button:hover .icon svg {
+      transform: translateX(0.1em);
+    }
+    
+    .cssbuttons-io-button:active .icon {
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }

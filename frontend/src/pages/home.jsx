@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <>
             <div className='home'>
-                <h1>Unemployment Simulator</h1>
+                <h1 className="login-text">HireHigher</h1>
                 <IconButton size="large" color='primary' style={{ background: 'white', borderRadius: '100%' }} onClick={() => {navigate('/setup')}}>
                     <StartIcon />
                 </IconButton>
