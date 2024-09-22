@@ -69,7 +69,6 @@ class chatManager:
         self.chatHistory.append(response.choices[0].message.content)
         return response.choices[0].message.content
 
-    
     def analyzeData(self, resumeData):
         response = openai.chat.completions.create(
             model = "gpt-4o-mini",
@@ -79,8 +78,8 @@ class chatManager:
                     "content": """
                     Pretend you are a recruiter given the following JSON-like data.
                     {
-                        jobTitle: The job the person wants to interview for
-                        additionalInfo: any additional information the person wants to provide about themself. Keep in mind some of this data may be biased, or unrelated.
+                        jobTitle: The job the person wants to interview for. This is the only required field.
+                        additionalInfo: any additional information the person wants to provide about themself, or the job. Keep in mind some of this data may be biased, or unrelated.
                         linkedInProfile: raw data scraped from their linkedin
                         resume:  raw resume data
                     }
@@ -89,6 +88,7 @@ class chatManager:
                     Provided this  information, I want you to analyze the person's skills and respond in a JSON-like format yourself. Respond as follows:
 
                     {
+                        position: The job title the person is applying for.
                         previousWork: What are some previous positions this person has held? Respond in a list in the format of Job_Title@Company_Name. Limit yourself to 3 responses, ordered from most relevant to least relevant,
                                       and secondly prioritized by most recent to least recent.
                                       Generalize the position if necessary like "Cashier@Superstore" or "Barista@Starbucks" or "Software Developer@Microsoft". This is to avoid weird position names like "Client support analyst" that
@@ -109,6 +109,7 @@ class chatManager:
                     Example Answers:
                     (For say, a software developer)
                     {
+                        "position": "Software Developer",
                         "previousWork": [
                             "Software Developer@Microsoft", 
                             "Software Developer@Google", 
@@ -129,6 +130,7 @@ class chatManager:
                     }
                     (For say, an accountant job)
                     {
+                        "position": "Accountant",
                         "previousWork": ["Accountant@Deloitte", "Cashier@McDonalds"]
                         "relatedWork": [
                             "Accountant@Deloitte: Managed financial records for a variety of clients"
@@ -140,6 +142,7 @@ class chatManager:
                     }
                     (For say, a Teenager applying for retail worker positions. )
                     {
+                        "position": "Retail Worker",
                         "previousWork": []
                         "relatedWork": []
                         "skills": ["Customer Service", "Microsoft Office", "Communication", "Research", "Leadership"]
@@ -147,8 +150,9 @@ class chatManager:
                         "Education": "High School Diploma"
                         "Keywords": ["Customer Service", "Communicated", "Led", "Managed", "Raised", "Engaged", "Problem Solving"]
                     }
-                    (The person did not provide any info except their job title)
+                    (The person did not provide any info except their job title (marketing manager))
                     {
+                        "position": "Marketing Manager",
                         "previousWork": []
                         "relatedWork": []
                         "skills": []
@@ -174,7 +178,7 @@ class chatManager:
             messages = [
                 {
                     "role": "system",
-                    "content": f"""Pretend you are an interviewer. Generate {amount} questions in a list based off of the following data. Regardless of amount, generate minimum 3 questions. The data is as follows:
+                    "content": f"""Pretend you are an interviewer. Generate {amount} questions in a list based off of the following data. The 'position' field is the job they're interviewering for, so all questions should be somewhat related to that job. The data is as follows: 
                     {ResumeData}
                     Now, keep in mind that the questions should be relevant to the job title and the additional information provided. The questions should be open-ended and should not be too specific.
                     From the resume data, I want you to follow these rules:

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function StartConfirmation(props) {
@@ -8,7 +8,10 @@ function StartConfirmation(props) {
 
     return (
         <div>
-            <p>insert summarized user info here</p>
+            {!props.canStart && <>
+            <p>Generating Questions</p>
+            <CircularProgress color="primary" />
+            </>}
 
             {props.canStart && 
             <Button onClick={() => {navigate("/interview")}}>Start the Interview</Button>

@@ -21,6 +21,9 @@ const Interview = () => {
 
     const [isLoadingAnalyses, setIsLoadingAnalyses] = useState(false);
 
+    const [times, setTimes] = useState([]);
+    const [startTime, setStartTime] = useState(0);
+
     useEffect(() => {
         const summaryJSON = JSON.parse(window.localStorage.getItem('summary'));
         const questionsJSON = JSON.parse(window.localStorage.getItem('questions'));
@@ -83,7 +86,10 @@ const Interview = () => {
             // Save the transcription for the current question
             setTranscriptions(prevTranscriptions => ({
                 ...prevTranscriptions,
-                [currentQuestion]: transcript
+                [currentQuestion]: {
+                    question: questions[currentQuestion + 1], // Save the question
+                    transcription: transcript // Save the transcription
+                }
             }));
         };
 
@@ -106,9 +112,14 @@ const Interview = () => {
     const nextQuestion = async () => {
         stopSpeechRecognition();
     
+        const endTime = Date.now();
+        const elapsedTime = (endTime - startTime) / 1000;
+        setTimes(prevTimes => [...prevTimes, elapsedTime]);
+
         // Check if the interview is done
         if (currentQuestion < questionCount) {
             setCurrentQuestion(prev => prev + 1);
+            setStartTime(Date.now());
         } else {
             // Ensure the last transcript is saved before submitting
             setTranscriptions(prevTranscriptions => {
@@ -126,10 +137,11 @@ const Interview = () => {
     // Submit the transcriptions to the backend
     const submitTranscriptions = async () => {
         const formData = new FormData();
-        Object.entries(transcriptions).forEach(([questionIndex, transcription]) => {
-            formData.append(`question${parseInt(questionIndex) + 1}`, transcription);
+        Object.entries(transcriptions).forEach(([questionIndex, { question, transcription }]) => {
+            formData.append(`question${parseInt(questionIndex) + 1}`, question); // Add question
+            formData.append(`transcription${parseInt(questionIndex) + 1}`, transcription); // Add transcription
         });
-
+    
         try {
             const response = await fetch('http://18.219.68.51:3000/transcriptions/', {
                 method: 'POST',
@@ -147,11 +159,13 @@ const Interview = () => {
             console.error('Error submitting transcriptions: ', err);
         }
     };
+    
 
     // Start transcription whenever the question changes
     useEffect(() => {
         if (currentQuestion <= questionCount - 1) {
             startSpeechRecognition();
+            setStartTime(Date.now());
         }
     }, [currentQuestion]);
 
@@ -171,17 +185,28 @@ const Interview = () => {
     const playbackScreen = () => {
         const transcriptionsArray = Object.values(transcriptions);
         window.localStorage.setItem('transcriptions', JSON.stringify(transcriptionsArray));
-
+    
+        // Function to calculate words per minute
+        const calculateWPM = (transcription, timeInSeconds) => {
+            const wordCount = transcription ? transcription.split(' ').filter(word => word.length > 0).length : 0;
+            const timeInMinutes = timeInSeconds / 60;
+            return timeInMinutes > 0 ? (wordCount / timeInMinutes).toFixed(2) : 0; // Ensure no division by zero
+        };
+    
         return (
             <div>
                 <h1>Interview Playback</h1>
                 <div>
-                    {transcriptionsArray.map((transcription, index) => (
+                    {transcriptionsArray.map((transcriptionOBJ, index) => (
                         <div key={index}>
                             <h3>Question {index + 1}</h3>
                             <h5>{questions[index + 1]}</h5>
-                            <p>{transcription}</p>
+                            <p>{transcriptionOBJ.transcription}</p>
                             <p>{analyses['analyses'][index]}</p>
+                            <p>Time taken: {times[index + 1]} seconds</p>
+    
+                            {/* Display WPM */}
+                            <p>Words per minute: {calculateWPM(transcriptionOBJ.transcription, times[index + 1])}</p>
                         </div>
                     ))}
                 </div>
