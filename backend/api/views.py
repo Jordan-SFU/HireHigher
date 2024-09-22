@@ -19,6 +19,7 @@ def testData(request):
 @api_view(['POST'])
 def processResumeInfo(request):
     serializer = ResumeInfoSerializer(data=request.data)
+    response_content = ''
     if serializer.is_valid():
         # serializer.save()
         print("Received POST data:", request.data)
