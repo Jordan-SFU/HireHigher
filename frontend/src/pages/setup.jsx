@@ -106,7 +106,7 @@ export default function Setup() {
             label: 'Job Title',
             content: (
                 <div className='content'>
-                    <Typography>What Job are you applying for?</Typography>
+                    <Typography style={{marginBottom: '10px'}}>What Job are you applying for?</Typography>
                     <TextField
                         label="Job Title"
                         value={jobTitle}
@@ -120,7 +120,7 @@ export default function Setup() {
             label: 'Resume',
             content: (
                 <div className='content'>
-                    <Typography>Resume</Typography>
+                    <Typography style={{marginBottom: '10px'}}>Upload your Resume</Typography>
                     <Button
                         component="label"
                         role={undefined}
@@ -141,7 +141,7 @@ export default function Setup() {
             label: 'Additional Information',
             content: (
                 <div className='content'>
-                    <Typography>Additional Information</Typography>
+                    <Typography style={{marginBottom: '10px'}}>Additional Information</Typography>
                     <div className="text-field">
                         <TextField
                             label="Job Information"
