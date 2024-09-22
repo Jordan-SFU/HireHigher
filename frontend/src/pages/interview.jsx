@@ -179,6 +179,7 @@ const Interview = () => {
                     {transcriptionsArray.map((transcription, index) => (
                         <div key={index}>
                             <h3>Question {index + 1}</h3>
+                            <h5>{questions[index + 1]}</h5>
                             <p>{transcription}</p>
                             <p>{analyses['analyses'][index]}</p>
                         </div>
