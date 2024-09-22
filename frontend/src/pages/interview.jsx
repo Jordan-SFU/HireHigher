@@ -133,6 +133,7 @@ const Interview = () => {
             });
             if (response.ok) {
                 console.log('Transcriptions submitted successfully');
+                console.log(response);
             } else {
                 console.error('Failed to submit transcriptions');
             }

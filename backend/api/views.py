@@ -28,7 +28,7 @@ def processResumeInfo(request):
     user_input = request.data["resume"]
     resume_data = chat_manager.analyzeData(user_input)
     print(resume_data)
-    questions = chat_manager.generateQuestions(10, resume_data)
+    questions = chat_manager.generateQuestions(5, resume_data)
     print(questions)
     return Response({"summary": resume_data, "questions": questions})
 
@@ -39,5 +39,27 @@ def setupData(request):
 
 @api_view(['POST'])
 def processTranscriptions(request):
-    print("Received POST data:", request.data)
-    return Response({"message": "Data received successfully"})
+    try:
+        # Assuming the transcript data is stored as a QueryDict in the format:
+        # {'question1': ['transcript of user answer for question 1'], 'question2': ['transcript of user answer for question 2'], ...}
+        transcripts = request.data  # Retrieve the QueryDict from the POST data
+
+        if transcripts:
+            analyses = {}  # To store the analysis results for each question
+            for question, transcript_list in transcripts.items():
+                # Assuming transcript_list is a list with one element, we get the first one
+                transcript = transcript_list[0] if transcript_list else ''
+
+                if transcript:
+                    # Call the analyzeUserResponse function for each transcript
+                    analysis = chat_manager.analyzeUserResponse(transcript)
+                    analyses[question] = analysis  # Store the analysis for the respective question
+                else:
+                    analyses[question] = "No transcript provided for this question"
+
+            return Response({"analyses": analyses})  # Return the analysis results for all questions
+        else:
+            return Response({"error": "No transcripts provided"}, status=400)
+    except Exception as e:
+        print(f"Error processing transcripts: {e}")
+        return Response({"error": "Internal Server Error"}, status=500)
