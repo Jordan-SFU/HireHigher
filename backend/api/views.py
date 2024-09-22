@@ -28,7 +28,7 @@ def processResumeInfo(request):
     user_input = request.data["resume"]
     resume_data = chat_manager.analyzeData(user_input)
     print(resume_data)
-    questions = chat_manager.generateQuestions(10, resume_data)
+    questions = chat_manager.generateQuestions(5, resume_data)
     print(questions)
     return Response({"summary": resume_data, "questions": questions})
 
