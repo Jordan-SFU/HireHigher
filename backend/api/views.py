@@ -45,16 +45,26 @@ def processTranscriptions(request):
     print("Received POST data:", request.data)
     print("\n\n\n")
 
-    for i in range(0, len(request.data)):
-        # check if the key exists
-        if 'question' + str(i + 1) not in request.data:
+    for i in range(0, len(request.data) // 2):  # Divide by 2 because each question has both question text and transcription
+        question_key = f'question{i + 1}'
+        transcription_key = f'transcription{i + 1}'
+
+        # Check if both the question and transcription exist
+        if question_key not in request.data or transcription_key not in request.data:
             break
 
-        user_input = request.data['question' + str(i + 1)]
-        analysis = chat_manager.analyzeUserResponse(user_input)
+        user_input = request.data[transcription_key]
+        question_text = request.data[question_key]
+
+        print(f"Processing Question {i + 1}: {question_text}")
+        print(f"User's Response: {user_input}")
+
+        # Analyze the user's response
+        analysis = chat_manager.analyzeUserResponse(f"Question asked: {question_text}. Answer: {user_input}")
         analyses.append(analysis)
         print(i + 1)
         print("     ")
         print(analysis)
         print("\n\n\n")
+        
     return Response({"analyses": analyses})

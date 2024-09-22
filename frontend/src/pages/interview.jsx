@@ -83,7 +83,10 @@ const Interview = () => {
             // Save the transcription for the current question
             setTranscriptions(prevTranscriptions => ({
                 ...prevTranscriptions,
-                [currentQuestion]: transcript
+                [currentQuestion]: {
+                    question: questions[currentQuestion + 1], // Save the question
+                    transcription: transcript // Save the transcription
+                }
             }));
         };
 
@@ -126,10 +129,11 @@ const Interview = () => {
     // Submit the transcriptions to the backend
     const submitTranscriptions = async () => {
         const formData = new FormData();
-        Object.entries(transcriptions).forEach(([questionIndex, transcription]) => {
-            formData.append(`question${parseInt(questionIndex) + 1}`, transcription);
+        Object.entries(transcriptions).forEach(([questionIndex, { question, transcription }]) => {
+            formData.append(`question${parseInt(questionIndex) + 1}`, question); // Add question
+            formData.append(`transcription${parseInt(questionIndex) + 1}`, transcription); // Add transcription
         });
-
+    
         try {
             const response = await fetch('http://18.219.68.51:3000/transcriptions/', {
                 method: 'POST',
@@ -147,6 +151,7 @@ const Interview = () => {
             console.error('Error submitting transcriptions: ', err);
         }
     };
+    
 
     // Start transcription whenever the question changes
     useEffect(() => {
