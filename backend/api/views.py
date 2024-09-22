@@ -41,6 +41,10 @@ def setupData(request):
 def processTranscriptions(request):
     chat_manager = chatManager()
     analyses = []
+
+    print("Received POST data:", request.data)
+    print("\n\n\n")
+
     for i in range(0, len(request.data)):
         # check if the key exists
         if 'question' + str(i + 1) not in request.data:
@@ -49,7 +53,7 @@ def processTranscriptions(request):
         user_input = request.data['question' + str(i + 1)]
         analysis = chat_manager.analyzeUserResponse(user_input)
         analyses.append(analysis)
-        print(i)
+        print(i + 1)
         print("     ")
         print(analysis)
         print("\n\n\n")
