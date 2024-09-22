@@ -173,40 +173,42 @@ export default function Setup() {
         <ThemeProvider theme={theme}>
             {!hasSubmitted && (
                 <>
-                    <div className='stepper'>
-                        <Stepper activeStep={activeStep}
-                            style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px' }}
+                    <div className='stepper-container'>
+                        <div className='stepper'>
+                            <Stepper activeStep={activeStep}
+                                style={{ backgroundColor: 'transparent', width: '90%', margin: 'auto', marginTop: '20px' }}
 
-                        >
-                            {stepLabels.map((label, index) => (
-                                <Step key={index}>
-                                    <StepLabel>{label}</StepLabel>
-                                </Step>
-                            ))}
-                        </Stepper>
-                    </div>
-                    <div className='button-container'>
-                        <Button
-                            onClick={() => { setActiveStep(prev => Math.max(prev - 1, 0)) }}
-                            disabled={activeStep === 0}
-                        >
-                            Back
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                activeStep === stepLabels.length - 1 ? handleSubmit() :
-                                    setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1))
-                            }}
-                            disabled={activeStep === stepLabels.length}
-                        >
-                            {activeStep === stepLabels.length - 1 ? 'Submit' : 'Next'}
-                        </Button>
-                    </div>
-                    <Box>
-                        <div className='step-content'>
-                            {steps[activeStep]?.content}
+                            >
+                                {stepLabels.map((label, index) => (
+                                    <Step key={index}>
+                                        <StepLabel>{label}</StepLabel>
+                                    </Step>
+                                ))}
+                            </Stepper>
                         </div>
-                    </Box>
+                        <div className='button-container'>
+                            <Button
+                                onClick={() => { setActiveStep(prev => Math.max(prev - 1, 0)) }}
+                                disabled={activeStep === 0}
+                            >
+                                Back
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    activeStep === stepLabels.length - 1 ? handleSubmit() :
+                                        setActiveStep(prev => Math.min(prev + 1, stepLabels.length - 1))
+                                }}
+                                disabled={activeStep === stepLabels.length}
+                            >
+                                {activeStep === stepLabels.length - 1 ? 'Submit' : 'Next'}
+                            </Button>
+                        </div>
+                        <Box>
+                            <div className='step-content'>
+                                {steps[activeStep]?.content}
+                            </div>
+                        </Box>
+                    </div>
                 </>
             )}
             {hasSubmitted && <StartConfirmation canStart={!isLoadingResults} />}
