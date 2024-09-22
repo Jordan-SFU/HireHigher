@@ -27,12 +27,6 @@ const Interview = () => {
 
         setSummary(summaryJSON);
         setQuestions(questionsJSON);
-
-        // Cleanup after state is set to ensure data is used first
-        return () => {
-            //window.localStorage.removeItem('summary');
-            //window.localStorage.removeItem('questions');
-        };
     }, []);
 
     useEffect(() => {
@@ -138,7 +132,9 @@ const Interview = () => {
             if (response.ok) {
                 console.log('Transcriptions submitted successfully');
                 let data = await response.json();
-                console.log(data);
+
+                // send data to local storage
+                localStorage.setItem('analyses', JSON.stringify(data));
             } else {
                 console.error('Failed to submit transcriptions');
             }
