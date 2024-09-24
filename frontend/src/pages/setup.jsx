@@ -1,3 +1,5 @@
+// http://http://127.0.0.1:8000 highlight to replace
+
 import React, { useState } from 'react';
 import { Stepper, Step, StepLabel, Button, Typography, Box, TextField } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
@@ -13,6 +15,7 @@ const theme = createTheme({
         fontFamily: 'Sans, Arial, sans-serif',
     },
 });
+
 
 
 const VisuallyHiddenInput = styled('input')({
@@ -70,7 +73,7 @@ export default function Setup() {
 
         try {
             // Send a POST request to your backend (adjust the URL accordingly)
-            const response = await fetch('http://18.219.68.51:3000/process/', {
+            const response = await fetch('http://127.0.0.1:8000/process/', {
                 method: 'POST',
                 body: formData, // FormData will format everything correctly including the file
             });

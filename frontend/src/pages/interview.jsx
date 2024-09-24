@@ -1,3 +1,5 @@
+// http://http://127.0.0.1:8000 highlight to replace
+
 import React, { useRef, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, Button } from '@mui/material';
 import '../styles/Interview.css';
@@ -143,7 +145,7 @@ const Interview = () => {
         });
     
         try {
-            const response = await fetch('http://18.219.68.51:3000/transcriptions/', {
+            const response = await fetch('http://127.0.0.1:8000/transcriptions/', {
                 method: 'POST',
                 body: formData
             });
@@ -199,12 +201,11 @@ const Interview = () => {
                 <div className='stats'>
                     {transcriptionsArray.map((transcriptionOBJ, index) => (
                         <div key={index} className='stat-block'>
-                            <h3>Question {index + 1}</h3>
-                            <h5>{questions[index + 1]}</h5>
-                            <p>{transcriptionOBJ.transcription}</p>
+                            <h2>Question {index + 1}: {questions[index + 1]}</h2>
+                            <p>Your Response: "{transcriptionOBJ.transcription}"</p>
                             <p>{analyses[index]}</p>
-                            <p>Time taken: {times[index + 1]} seconds</p>
-                            <p>Words per minute: {calculateWPM(transcriptionOBJ.transcription, times[index + 1])}</p>
+                            <h3>Time taken: {times[index + 1]} seconds</h3>
+                            <h3>Words per minute: {calculateWPM(transcriptionOBJ.transcription, times[index + 1])}</h3>
                         </div>
                     ))}
                 </div>
@@ -250,14 +251,14 @@ const Interview = () => {
                                 <p>{questions[currentQuestion + 1]}</p>
                             </div>
                         )}
-
-                        <Button
-                            className="control-btn"
-                            style={{position: 'relative', display: 'grid', marginTop: '4%', left:'44%', justifyContent: 'center' }}
-                            onClick={nextQuestion}
-                        >
-                            {currentQuestion < questionCount - 1 ? 'Next Question' :(currentQuestion < questionCount ? 'Finish' : 'Submit')}
-                        </Button>
+                        <div className="ctl-button-container">
+                            <Button
+                                className="control-btn"
+                                onClick={nextQuestion}
+                            >
+                                {currentQuestion < questionCount - 1 ? 'Next Question' :(currentQuestion < questionCount ? 'Finish' : 'Submit')}
+                            </Button>
+                        </div>
                     </div>
                 ) : (
                     <p>Loading questions...</p> // Fallback in case questions are still being loaded
@@ -265,7 +266,7 @@ const Interview = () => {
             </>)}
             {/* Playback Screen */}
             {isDone && !isLoadingAnalyses && analyses && playbackScreen()}
-            {isLoadingAnalyses && <p>Submitting transcriptions...</p>}
+            {isLoadingAnalyses && <p style={{ alignItems:"center", alignContent:"center"}}>Submitting transcriptions...</p>}
         </div>
     );
 };

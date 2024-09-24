@@ -7,7 +7,7 @@ load_dotenv()
 
 
 # Set the API key when using OpenAI API
-openai.api_key = ""
+openai.api_key = os.getenv("OPENAI_KEY")
 
 class chatManager:
 
@@ -259,8 +259,8 @@ e Graphic design, Music production, Biking
 
 }
 """
-# analyzedData = chat_manager.analyzeData(user_input)
-# print(analyzedData)
+analyzedData = chat_manager.analyzeData(user_input)
+print(analyzedData)
 # questions = chat_manager.generateQuestions(5, user_input)
 # print(questions)
 # print(chat_manager.display_message_history())
