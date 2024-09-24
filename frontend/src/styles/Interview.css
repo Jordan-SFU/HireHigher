@@ -162,3 +162,28 @@ html {
     font-size: 3em;
     font-family: 'Sans';
 }
+
+.containagain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+
+.buttonagain {
+    background-color: #007bff !important;
+    font-family: 'Sans' !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    transition: background-color 0.3s !important;
+}
+
+.yourresponse {
+    color:  #0857ac !important;
+}

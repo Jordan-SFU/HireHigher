@@ -202,14 +202,17 @@ const Interview = () => {
                     {transcriptionsArray.map((transcriptionOBJ, index) => (
                         <div key={index} className='stat-block'>
                             <h2>Question {index + 1}: {questions[index + 1]}</h2>
-                            <p>Your Response: "{transcriptionOBJ.transcription}"</p>
+                            <p className="yourresponse">Your Response: "{transcriptionOBJ.transcription}"</p>
                             <p>{analyses[index]}</p>
-                            <h3>Time taken: {times[index + 1]} seconds</h3>
-                            <h3>Words per minute: {calculateWPM(transcriptionOBJ.transcription, times[index + 1])}</h3>
+                            <h3>Time taken: <a className="yourresponse">{times[index + 1]} seconds</a></h3>
+                            <h3>Words per minute: <a className="yourresponse">{calculateWPM(transcriptionOBJ.transcription, times[index + 1])}</a></h3>
                         </div>
                     ))}
                 </div>
-                <Button onClick={() => navigate('/')}>Try Again?</Button>
+                <div className="containagain">
+                    <Button className="buttonagain" onClick={() => navigate('/')}>Try Again?</Button>
+                </div>
+                
             </div>
         );
     };
