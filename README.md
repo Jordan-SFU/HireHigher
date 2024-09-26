@@ -14,7 +14,7 @@ HireHigher is an AI-based interview simulator, designed to help you ace your nex
 
 # Usage
 
-git clone the repository with the following command.
+```git clone``` the repository with the following command.
 
 ```
 git clone https://github.com/Jordan-SFU/HireHigher.git
@@ -25,6 +25,12 @@ Install missing Python dependancies and node modules.
 ```
 pip install django-cors-headers djangorestframework django-posts python-dotenv
 npm i
+```
+
+In order for the AI analysis to work, you will need to provide an OpenAI API key. In the main folder, create a ```.env``` file with the following text.
+
+```
+OPENAI_KEY=<YOUR_API_KEY_HERE>
 ```
 
 Start the backend server with the following commands.
