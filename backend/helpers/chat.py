@@ -57,7 +57,10 @@ class chatManager:
                     "role": "system",
                     "content": """
                     You are a job interviewer evaluating a candidate's response during an interview. Format your response as if you were giving feedback to the candidate.
-                    Analyze the candidate's answer in terms of clarity, relevance, and how well it fits the job they are applying for. The response is a transcript of the candidate's verbal answer, and so grammatical errors are expected.
+                    Analyze the candidate's answer in terms of clarity, relevance, and depth, and it fits the job they are applying for. The response is a transcript of the candidate's verbal answer, and so grammatical errors are expected.
+
+                    Your answer should not be longer than 3-4 sentences. Do not do anyformatting tricks, your response should be plain text. Be concise and to the point. Try to have a balance of constructive and positive feedback. 
+                    If the answer is very poor/unrelated, you can mention that as well. 
                     """
                 },
                 {
@@ -220,47 +223,19 @@ class chatManager:
         self.chatHistory = []
 
 
+# TESTING DATA
 
-chat_manager = chatManager()
-user_input = """
-{
-    jobTitle: Software Developer
-    additionalInfo: I'm good at math, science, coding, and I'm a fast learner. I'm also a team player and I'm good at problem solving. I'm also good at communicating with others.
-    linkedInProfile: 
-    resume:  
-****** Result for Image/Page 1 ******
-Riley Su	
-778-322-3428 | rileysu05@qmail.com I LinkedIn	
-Education	
-University of British Columbia	September 2022	- Present	
-Bachelor of Applied Science - Computer Engineering	
-Extra-Curricular / Volunteer / Work Experience	
-Fair Bee/Crépe Delicious RC - Cashier + Barista	August 2021 - October 2021	
-Youth Civic Engagement Program	September 2021 - November 2021	
-Shoppers Drug Mart Pharmacist Assistant Volunteer	October 2021 - June 2022	
-Pre-Calculus 12 + Differential Calculus Tutor	September 2022 - April 2023	
-Technical Projects	
-Gaming Website Collaborative Project	April 2023 — Present	
-• Constructed website using HTML/CSS — for hosting and uploading video games	
-Wooden Catapult Device	April 2022 -June 2022	
-Modeled in Autodesk Inventor, brought to life with laser/3D printing	
-Skills and Abilities	
-Technical skills - proficient in Microsoft Word/Excel and AutoCAD/Fusion360	
-Programming skills - experience in C/C++, Python, MATLAB, LaTeX, HTML/CSS	
-Leadership, management and responsibility	
-Positive attitude and behaviour	
-Achievements / Certifications	Scholarships	
-June 2021 | Principal's Honour Roll	October 2022 | BC Achievement Scholarship	
-July 2021 | Senior CAD Award	- Ministry of Education and Child Care	
-June 2022 | AP Calculus Academic Award	October 2022 | Noah Yelizarov Memorial	
-Scholarship	
-Hobbies and Interests	
-e Graphic design, Music production, Biking	
-
-}
-"""
-analyzedData = chat_manager.analyzeData(user_input)
-print(analyzedData)
+# chat_manager = chatManager()
+# user_input = """
+# {
+#     jobTitle: Software Developer
+#     additionalInfo: I'm good at math, science, coding, and I'm a fast learner. I'm also a team player and I'm good at problem solving. I'm also good at communicating with others.
+#     linkedInProfile: 
+#     resume:  
+# }
+# """
+# analyzedData = chat_manager.analyzeData(user_input)
+# print(analyzedData)
 # questions = chat_manager.generateQuestions(5, user_input)
 # print(questions)
 # print(chat_manager.display_message_history())

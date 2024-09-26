@@ -1,3 +1,3 @@
 # GetRejected
 
-haha owned
+![Image Example](./frontend/src/styles/images/Example.gif)
