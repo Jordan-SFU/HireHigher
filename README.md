@@ -8,9 +8,36 @@ HireHigher is an AI-based interview simulator, designed to help you ace your nex
 
 # Tech Stack
 
-Our frontend was built with React and CSS, while our backend was built in Python with the Django REST framework. 
+- Our frontend was built with React and CSS, while our backend was built in Python with the Django REST framework. Hosted on AWS during the Hackathon.
 
-We used the Google Chrome Webkit Speech Recognition for our speech-to-text transcription. Resume information was scraped with the OCR API and LinkedIn profiles were scraped with Selenium. AI analysis tools were based off of OpenAi's GPT-4o-mini model.
+- We used the Google Chrome Webkit Speech Recognition for our speech-to-text transcription. Resume information was scraped with the OCR API and LinkedIn profiles were scraped with Selenium. AI analysis tools were based off of OpenAi's GPT-4o-mini model.
 
+# Usage
 
+git clone the repository with the following command.
 
+```
+git clone https://github.com/Jordan-SFU/HireHigher.git
+```
+
+Install missing Python dependancies and node modules.
+
+```
+pip install django-cors-headers djangorestframework django-posts python-dotenv
+npm i
+```
+
+Start the backend server with the following commands.
+
+```
+cd backend
+python manage.py runserver
+# python3 manage.py runserver for MacOS/Linux-based systems.
+```
+
+Start the frontend.
+
+```
+cd frontend
+npm start
+```
