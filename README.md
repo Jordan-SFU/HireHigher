@@ -2,7 +2,7 @@
 
 # HireHigher
 
-🏆 First place winner of LangaraHacks 2024! 🏆
+🏆 Winning Project of LangaraHacks 2024! 🏆
 
 HireHigher is an AI-based interview simulator, designed to help you ace your next job interview. Taking in context from your job title, resume, and LinkedIn, HireHigher aims to provide a highly customizable and realistic experience.
 
