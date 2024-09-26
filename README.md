@@ -23,7 +23,7 @@ git clone https://github.com/Jordan-SFU/HireHigher.git
 Install missing Python dependancies and node modules.
 
 ```
-pip install django-cors-headers djangorestframework django-posts python-dotenv
+pip install django-cors-headers djangorestframework django-posts python-dotenv openai
 npm i
 ```
 
