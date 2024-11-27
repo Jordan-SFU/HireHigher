@@ -23,8 +23,8 @@ git clone https://github.com/Jordan-SFU/HireHigher.git
 Install missing Python dependancies and node modules.
 
 ```
-pip install django-cors-headers djangorestframework django-posts python-dotenv openai
-npm i
+pip install -r requirements.txt
+cd ../frontend; npm i
 ```
 
 In order for the AI analysis to work, you will need to provide an OpenAI API key. In the main folder, create a ```.env``` file with the following text.
