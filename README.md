@@ -24,7 +24,8 @@ Install missing Python dependancies and node modules.
 
 ```
 pip install -r requirements.txt
-cd ../frontend; npm i
+cd ../frontend
+npm i
 ```
 
 In order for the AI analysis to work, you will need to provide an OpenAI API key. In the main folder, create a ```.env``` file with the following text.
