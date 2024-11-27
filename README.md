@@ -24,7 +24,7 @@ Install missing Python dependancies and node modules.
 
 ```
 pip install -r requirements.txt
-cd ../frontend
+cd frontend
 npm i
 ```
 
